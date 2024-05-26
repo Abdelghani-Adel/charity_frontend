@@ -10,9 +10,25 @@ const config: Config = {
     extend: {
       backgroundImage: {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
-        "gradient-conic":
-          "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
+        "gradient-conic": "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
       },
+      colors: {
+        primary: "#03C988",
+        secondary: "#00337C",
+        "primary-dark": "#009688",
+        "secondary-dark": "#13005A",
+      },
+      transitionProperty: {
+        width: "width",
+      },
+      transitionDuration: {
+        "300": "300ms",
+      },
+    },
+  },
+  variants: {
+    extend: {
+      width: ["responsive", "hover", "focus"],
     },
   },
   plugins: [],

@@ -44,18 +44,12 @@ const navItems: INavItem[] = [
   },
 ];
 
-type IProps = {
-  isCollapsed: boolean;
-};
-
-const Navigation = (props: IProps) => {
-  const { isCollapsed } = props;
-
+const Navigation = () => {
   return (
     <nav className="w-full">
       <ul className="flex flex-col space-y-4">
         {navItems.map((item) => (
-          <NavItem isCollapsed={isCollapsed} item={item} key={v4()} />
+          <NavItem item={item} key={v4()} />
         ))}
       </ul>
     </nav>
@@ -63,12 +57,11 @@ const Navigation = (props: IProps) => {
 };
 
 type INavitemProps = {
-  isCollapsed: boolean;
   item: INavItem;
 };
 
 const NavItem = (props: INavitemProps) => {
-  const { item, isCollapsed } = props;
+  const { item } = props;
   const [isOpened, setIsOpened] = useState(false);
 
   const toggle = () => setIsOpened(!isOpened);
@@ -78,17 +71,13 @@ const NavItem = (props: INavitemProps) => {
         {/* Main item */}
         <Link href={item.href} className="flex items-center w-full">
           <item.icon />
-          <span
-            className={`ml-2 transition-width duration-300 overflow-hidden ${
-              isCollapsed ? "w-0" : "w-auto"
-            }`}
-          >
+          <span className={`ml-2 transition-width duration-300 overflow-hidden w-auto `}>
             {item.label}
           </span>
         </Link>
 
         {/* Arrow */}
-        {item.children.length > 0 && !isCollapsed && (
+        {item.children.length > 0 && (
           <button onClick={toggle} className="focus:outline-none ml-2">
             <IoChevronDownOutline
               className={`h-4 w-4 transition-transform ${isOpened ? "rotate-180" : "rotate-0"}`}
@@ -100,9 +89,7 @@ const NavItem = (props: INavitemProps) => {
       {/* Sub items */}
       {item.children.length > 0 && isOpened && (
         <ul
-          className={`mt-2 ml-2  transition-max-height duration-300 overflow-hidden  w-full ${
-            isCollapsed ? "max-h-0" : "max-h-screen"
-          }`}
+          className={`mt-2 ml-2  transition-max-height duration-300 overflow-hidden  w-full max-h-screen `}
         >
           {item.children.map((child) => (
             <li key={child.href} className="p-2 w-full hover:bg-gray-600">

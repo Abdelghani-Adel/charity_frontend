@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "@/styles/index.css";
 import Sidebar from "@/components/Sidebar";
+import Header from "@/components/Header";
 
 export const metadata: Metadata = {
   title: "Charity System",
@@ -13,12 +14,17 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html>
+    <html lang="ar">
       <body>
-        <div className="flex min-h-screen overflow-hidden text-right">
-          <Sidebar />
+        <div className="h-screen overflow-hidden">
+          <Header />
+          <div className="flex h-full">
+            <div className="hidden md:block w-64">
+              <Sidebar />
+            </div>
 
-          <div className="flex-grow p-4 overflow-auto">{children}</div>
+            <div className="flex-grow p-4 overflow-auto">{children}</div>
+          </div>
         </div>
       </body>
     </html>

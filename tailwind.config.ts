@@ -15,7 +15,7 @@ const config: Config = {
       colors: {
         primary: "#03C988",
         secondary: "#00337C",
-        "primary-dark": "#009688",
+        "primary-dark": "#09b47c",
         "secondary-dark": "#13005A",
       },
       transitionProperty: {

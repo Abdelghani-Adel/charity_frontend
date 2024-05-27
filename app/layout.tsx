@@ -18,7 +18,7 @@ export default function RootLayout(props: Readonly<IProps>) {
   return (
     <html lang="ar">
       <body>
-        <main className="h-screen overflow-hidden">
+        <main className="h-screen overflow-hidden text-right">
           <Header />
 
           <div className="flex h-full">

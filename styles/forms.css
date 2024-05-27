@@ -1,18 +1,24 @@
-.formGroup {
+/* .formGroup {
+  display: flex;
+  flex-direction: column;
+}
+
+.formLabel {
+  flex-shrink: 0;
+  text-align: right;
 }
 
 .formInput {
-  @apply text-right;
-  direction: rtl; /* Set direction to right-to-left */
+  direction: rtl;
   @apply text-gray-500 placeholder-gray-500 placeholder-opacity-50;
   @apply border border-gray-300 rounded-md px-3 py-2 w-full focus:outline-none;
 }
 
 .formInput::placeholder {
-  direction: ltr; /* Set direction of placeholder to left-to-right */
+  direction: ltr;
   @apply text-gray-500 placeholder-gray-500 placeholder-opacity-50;
 }
 
 .formInput:focus {
   @apply border-blue-500;
-}
+} */

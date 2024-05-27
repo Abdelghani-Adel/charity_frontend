@@ -1,24 +1,3 @@
-/* .formGroup {
-  display: flex;
-  flex-direction: column;
+.disabledInput {
+  @apply disabled:text-black disabled:bg-gray-100 disabled:cursor-not-allowed disabled:pointer-events-none;
 }
-
-.formLabel {
-  flex-shrink: 0;
-  text-align: right;
-}
-
-.formInput {
-  direction: rtl;
-  @apply text-gray-500 placeholder-gray-500 placeholder-opacity-50;
-  @apply border border-gray-300 rounded-md px-3 py-2 w-full focus:outline-none;
-}
-
-.formInput::placeholder {
-  direction: ltr;
-  @apply text-gray-500 placeholder-gray-500 placeholder-opacity-50;
-}
-
-.formInput:focus {
-  @apply border-blue-500;
-} */

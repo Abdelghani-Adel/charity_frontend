@@ -5,7 +5,7 @@ export const getIndigentData = async (nid: string) => {
   let error = null;
 
   try {
-    if (nid === "12345678912345" && nid.length === 14) {
+    if (nid === "1234567") {
       const response = await apiClient.get("/data/indigent.json");
       data = response.data;
     }

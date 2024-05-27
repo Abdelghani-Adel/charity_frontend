@@ -22,8 +22,8 @@ const SelectInput = (props: IProps) => {
       dir="rtl"
       disabled={disabled}
       name={name}
-      className="text-right text-gray-500 border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:border-gray-400 
-                disabled:bg-gray-200 disabled:cursor-not-allowed"
+      className="text-right border border-gray-300 rounded-md px-3 py-2 focus:outline-none 
+                disabledInput"
     >
       {options.map((option) => (
         <option key={option.value} value={option.value}>

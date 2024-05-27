@@ -29,7 +29,7 @@ const Page = () => {
     setFormData((prevData) => ({ ...prevData, ["nid"]: value }));
 
     // Checks if the NID exists.
-    if (value.length === 14) {
+    if (value.length === 7) {
       let indigentInfo: IIndigentInfo | null = null;
       const { data } = await getIndigentData(value);
 
@@ -112,7 +112,7 @@ const Page = () => {
           <SelectInput
             disabled={nidExistsBefore}
             id="gov"
-            name="gov"
+            name="governateId"
             options={governates}
             onChange={onInputChange}
             value={formData?.governateId ?? ""}
@@ -124,7 +124,7 @@ const Page = () => {
           <SelectInput
             disabled={nidExistsBefore}
             id="city"
-            name="city"
+            name="cityId"
             options={cities}
             onChange={onInputChange}
             value={formData?.cityId ?? ""}

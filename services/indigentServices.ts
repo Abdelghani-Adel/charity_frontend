@@ -5,9 +5,13 @@ export const getIndigentData = async (nid: string) => {
   let error = null;
 
   try {
-    if (nid === "1234567") {
-      const response = await apiClient.get("/data/indigent.json");
-      data = response.data;
+    const response = await apiClient.get("/data/indigent.json");
+    const allData = response.data;
+
+    data = allData.find((item: IIndigentInfo) => item.nid === nid);
+
+    if (!data) {
+      error = "Error: No data found for the provided NID";
     }
   } catch (err) {
     error = "Error: Couldn't get the data";

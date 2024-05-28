@@ -26,8 +26,8 @@ const navItems: INavItem[] = [
     icon: LiaIdCard,
     children: [
       { href: "/indigents/add", label: "إضافة" },
-      { href: "/indigents/edit", label: "طلب تعديل" },
       { href: "/indigents/inquery", label: "إستعلام" },
+      { href: "/indigents/edit", label: "طلب تعديل" },
     ],
   },
   {
@@ -71,7 +71,7 @@ const NavItem = (props: INavitemProps) => {
         {/* Main item */}
         <Link href={item.href} className="flex items-center w-full">
           <item.icon />
-          <span className={`ml-2 transition-width duration-300 overflow-hidden w-auto `}>
+          <span className={`mr-2 transition-width duration-300 overflow-hidden w-auto `}>
             {item.label}
           </span>
         </Link>

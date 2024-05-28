@@ -17,7 +17,7 @@ const TextInput = (props: IProps) => {
   return (
     <input
       type="text"
-      className="text-right placeholder-right text-gray-500 placeholder-opacity-50 border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:border-gray-400 disabledInput"
+      className="inputField"
       id={id}
       placeholder={placeholder}
       name={name}

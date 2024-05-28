@@ -19,11 +19,9 @@ const SelectInput = (props: IProps) => {
       id={id}
       value={value}
       onChange={onChange}
-      dir="rtl"
       disabled={disabled}
       name={name}
-      className="text-right border border-gray-300 rounded-md px-3 py-2 focus:outline-none 
-                disabledInput"
+      className="inputField"
     >
       {options.map((option) => (
         <option key={option.value} value={option.value}>

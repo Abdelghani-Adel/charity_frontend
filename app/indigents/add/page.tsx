@@ -1,5 +1,7 @@
 "use client";
+import IndigentForm from "@/components/forms/IndigentForm";
 import Button from "@/components/ui/Button";
+import DateInput from "@/components/ui/DateInput";
 import Form from "@/components/ui/Form";
 import FormGroup from "@/components/ui/FormGroup";
 import FormLabel from "@/components/ui/FormLabel";
@@ -14,7 +16,6 @@ import React, { useEffect, useState } from "react";
 const Page = () => {
   const [formData, setFormData] = useState<Partial<IIndigentInfo> | undefined | null>();
   const [governates, setGovernates] = useState<ISelectOption[]>([{ value: "", label: "" }]);
-  const [cities, setCities] = useState<ISelectOption[]>([{ value: "", label: "" }]);
 
   const [nidExistsBefore, setNidExistsBefore] = useState(false);
 
@@ -46,32 +47,13 @@ const Page = () => {
     }
   };
 
-  useEffect(() => {
-    const fetchGoverntes = async () => {
-      const { data, error } = await getGovernates();
-      const options = generateSelectOptions(data.governates, "id", "name");
-      setGovernates(options);
-    };
-
-    fetchGoverntes();
-  }, []);
-
-  useEffect(() => {
-    const fetchCities = async () => {
-      const { data, error } = await getCities(formData?.governateId ?? "");
-      const options = generateSelectOptions(data.cities, "id", "name");
-      setCities(options);
-    };
-
-    fetchCities();
-  }, [formData?.governateId]);
-
   return (
     <div>
       <PageTitle title="إضافة حالة" />
 
       <Form>
-        <FormGroup>
+        <IndigentForm formData={formData} onFormChange={() => {}} />
+        {/* <FormGroup>
           <FormLabel htmlFor="nid" label="الرقم القومى" />
           <TextInput
             disabled={false}
@@ -92,6 +74,33 @@ const Page = () => {
             placeholder="الإسم رباعي"
             onChange={onInputChange}
             value={formData?.name ?? ""}
+          />
+        </FormGroup>
+
+        <FormGroup>
+          <FormLabel htmlFor="birthDate" label="تاريخ الميلاد" />{" "}
+          <DateInput
+            disabled={nidExistsBefore}
+            id="birthDate"
+            name="birthDate"
+            placeholder="أدخل تاريخ الميلاد"
+            onChange={onInputChange}
+            value={formData?.birthDate ?? ""}
+          />
+        </FormGroup>
+
+        <FormGroup>
+          <FormLabel htmlFor="gender" label="الجنس" />
+          <SelectInput
+            disabled={nidExistsBefore}
+            id="gender"
+            name="gender"
+            options={[
+              { value: "ذكر", label: "ذكر" },
+              { value: "أنثي", label: "أنثي" },
+            ]}
+            onChange={onInputChange}
+            value={formData?.gender ?? ""}
           />
         </FormGroup>
 
@@ -119,17 +128,7 @@ const Page = () => {
           />
         </FormGroup>
 
-        <FormGroup>
-          <FormLabel htmlFor="city" label="المدينة" />
-          <SelectInput
-            disabled={nidExistsBefore}
-            id="city"
-            name="cityId"
-            options={cities}
-            onChange={onInputChange}
-            value={formData?.cityId ?? ""}
-          />
-        </FormGroup>
+       
 
         <FormGroup>
           <FormLabel htmlFor="destrict" label="المنطقة / الحيّ" />
@@ -141,9 +140,11 @@ const Page = () => {
             onChange={onInputChange}
             value={formData?.destrictId ?? ""}
           />
-        </FormGroup>
+        </FormGroup> */}
 
-        <Button disabled={nidExistsBefore}>إضافة</Button>
+        <div className="col-span-3">
+          <Button disabled={nidExistsBefore}>إضافة</Button>
+        </div>
       </Form>
     </div>
   );

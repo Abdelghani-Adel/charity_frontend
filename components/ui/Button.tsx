@@ -14,7 +14,7 @@ const Button: React.FC<ButtonProps> = ({
   children,
 }) => {
   const baseClassName =
-    "text-center text-white border-none rounded-md px-3 py-2  bg-primary hover:bg-primary-dark duration-300 disabledInput";
+    "text-center text-white border-none rounded-md px-3 py-2 inline-flex items-center gap-2 bg-primary hover:bg-primary-dark duration-300 disabledInput";
 
   return (
     <button type={type} onClick={onClick} disabled={disabled} className={baseClassName}>

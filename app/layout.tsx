@@ -21,7 +21,7 @@ export default function RootLayout(props: Readonly<IProps>) {
         <main className="h-screen overflow-hidden text-right">
           <Header />
 
-          <div className="flex h-full">
+          <div className="flex h-[92vh]">
             <DesktopSidebar />
 
             <div className="flex-grow p-4 overflow-auto">{children}</div>

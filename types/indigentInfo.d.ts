@@ -2,7 +2,9 @@ interface IIndigentInfo {
   id: string;
   nid: string;
   name: string;
-  birthDate: string;
+  birthGov: string;
+  birthDate: Date;
+  age: string;
   gender: string;
   indigentTypeId: string;
   kids: string;

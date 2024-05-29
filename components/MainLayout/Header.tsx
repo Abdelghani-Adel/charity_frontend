@@ -13,7 +13,7 @@ const Header = () => {
   };
 
   return (
-    <div className="w-full p-3 flex justify-between align-middle h-14 text-white bg-secondary-dark">
+    <div className="w-full p-3 flex justify-between align-middle h-[8vh] text-white bg-secondary-dark">
       <div className="logo">Logo</div>
 
       <MobileSidebarToggler onToggle={toggleSidebar} />

@@ -27,17 +27,15 @@ const SelectCity = (props: IProps) => {
   }, [govId]);
 
   return (
-    <FormGroup>
-      <FormLabel htmlFor="city" label="المدينة" />
-      <SelectInput
-        disabled={disabled}
-        id="city"
-        name="cityId"
-        options={cities}
-        onChange={onInputChange}
-        value={value}
-      />
-    </FormGroup>
+    <SelectInput
+      disabled={disabled}
+      id="city"
+      name="cityId"
+      label="المدينة"
+      options={cities}
+      onChange={onInputChange}
+      value={value}
+    />
   );
 };
 

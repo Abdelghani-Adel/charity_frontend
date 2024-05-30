@@ -41,6 +41,15 @@ const AddIndigentForm = () => {
         onChange={onInputChange}
       />
 
+      <TextInput
+        label="العنوان"
+        placeholder="العنوان"
+        name="address"
+        value={form?.address ?? ""}
+        disabled={fieldsDisabled}
+        onChange={onInputChange}
+      />
+
       <SelectInput
         label="نوع الحالة"
         placeholder="نوع الحالة"

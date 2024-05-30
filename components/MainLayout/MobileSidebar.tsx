@@ -9,7 +9,7 @@ const MobileSidebar = (props: IProps) => {
   const { isCollapsed } = props;
   return (
     <div
-      className={`md:hidden transition-all duration-500 fixed top-14 w-2/3 h-screen ${
+      className={`md:hidden transition-all duration-500 fixed top-14 w-2/3 h-screen z-10 ${
         isCollapsed ? "-right-full" : "right-0"
       }`}
     >

@@ -42,11 +42,15 @@ export const useAddIndigent = () => {
     setForm(indigentInfo);
     setFieldsDisabled(true);
     setPrevNIDIsInTheDB(true);
+    exportInfoFromNid();
   };
 
   const handleNewNidInput = () => {
     setFieldsDisabled(false);
+    exportInfoFromNid();
+  };
 
+  const exportInfoFromNid = () => {
     const { birthDate, gender, governorate, age } = pullDataFromEgyptianID(form?.nid ?? "");
     setForm((prevData) => ({
       ...prevData,

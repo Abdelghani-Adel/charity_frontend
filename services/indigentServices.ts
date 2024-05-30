@@ -1,4 +1,5 @@
 import apiClient from "./clients";
+import indigentList from "@/public/data/indigent.json";
 
 export const getIndigentData = async (nid: string) => {
   let data = null;
@@ -7,6 +8,8 @@ export const getIndigentData = async (nid: string) => {
   try {
     const response = await apiClient.get("/data/indigent.json");
     const allData = response.data;
+
+    // const list: Partial<IIndigentInfo>[] = indigentList;
 
     data = allData.find((item: IIndigentInfo) => item.nid === nid);
 

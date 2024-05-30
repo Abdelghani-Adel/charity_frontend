@@ -12,7 +12,7 @@ const MobileSidebarToggler = (props: IProps) => {
     <div className="md:hidden">
       <button
         onClick={onToggle}
-        className="focus:outline-none mr-auto border-white border-2 p-1 rounded-lg bg-gray-100 text-gray-800"
+        className="focus:outline-none border-white border-2 p-1 rounded-lg bg-gray-100 text-gray-800"
       >
         <BsList className="w-6 h-6" />
       </button>

@@ -3,9 +3,9 @@
 import React from "react";
 import FormGroup from "./FormGroup";
 import FormLabel from "./FormLabel";
+import { v4 } from "uuid";
 
 type IProps = {
-  id: string;
   placeholder: string;
   value: string;
   label: string;
@@ -15,7 +15,8 @@ type IProps = {
 };
 
 const TextInput = (props: IProps) => {
-  const { id, placeholder, name, value, label, disabled, onChange } = props;
+  const id = v4();
+  const { placeholder, name, value, label, disabled, onChange } = props;
 
   return (
     <FormGroup>

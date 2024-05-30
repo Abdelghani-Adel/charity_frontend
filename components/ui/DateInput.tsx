@@ -2,9 +2,9 @@ import React, { useRef, useState } from "react";
 import { MdOutlineDateRange } from "react-icons/md";
 import FormGroup from "./FormGroup";
 import FormLabel from "./FormLabel";
+import { v4 } from "uuid";
 
 type IProps = {
-  id: string;
   placeholder: string;
   value: Date;
   label: string;
@@ -14,7 +14,8 @@ type IProps = {
 };
 
 const DateInput = (props: IProps) => {
-  const { id, placeholder, name, value, label, disabled, onChange } = props;
+  const id = v4();
+  const { placeholder, name, value, label, disabled, onChange } = props;
   const dateInputRef = useRef<HTMLInputElement>(null);
 
   const handleButtonClick = () => {

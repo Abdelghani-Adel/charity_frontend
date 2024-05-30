@@ -6,9 +6,9 @@ interface IIndigentInfo {
   birthDate: Date;
   age: string;
   gender: string;
-  indigentTypeId: string;
   kids: string;
   phone: string;
+  indigencyTypeId: string;
   governateId: string;
   cityId: string;
   destrictId: string;

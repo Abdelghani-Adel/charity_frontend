@@ -3,19 +3,21 @@
 import React from "react";
 import FormGroup from "./FormGroup";
 import FormLabel from "./FormLabel";
+import { v4 } from "uuid";
 
 type IProps = {
-  id: string;
   options: ISelectOption[];
   label: string;
   name: string;
   value: string;
   disabled: boolean;
+  placeholder: string;
   onChange: (e: React.ChangeEvent<HTMLSelectElement>) => void;
 };
 
 const SelectInput = (props: IProps) => {
-  const { id, options, name, value, disabled, label, onChange } = props;
+  const id = v4();
+  const { options, name, value, placeholder, disabled, label, onChange } = props;
 
   return (
     <FormGroup>
@@ -28,6 +30,7 @@ const SelectInput = (props: IProps) => {
         name={name}
         className="inputField"
       >
+        {(!value || value.length == 0) && <option>{placeholder}</option>}
         {options.map((option) => (
           <option key={option.value} value={option.value}>
             {option.label}

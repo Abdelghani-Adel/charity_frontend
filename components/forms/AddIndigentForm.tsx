@@ -1,136 +1,126 @@
-import TextInput from "@/components/ui/TextInput";
-import cities from "@/public/data/cities.json";
-import districts from "@/public/data/districts.json";
-import governates from "@/public/data/gov.json";
+import destricts from "@/public/data/districts.json";
 import indigencyTypes from "@/public/data/indigencyTypes.json";
-import { formatDate } from "@/utils/dates";
-import Button from "../ui/Button";
-import Form from "../ui/Form";
-import SelectInput from "../ui/SelectInput";
-import { useAddIndigent } from "./useAddIndigent";
+import cities from "@/public/data/cities.json";
+import governates from "@/public/data/gov.json";
+import { useForm, Validate } from "react-hook-form";
+import SelectController from "../ui/SelectController";
+import TextFieldController from "../ui/TextFieldController";
+import { pullDataFromEgyptianID, validateEgyptianNationalID } from "@/utils/egyptianID";
+import { useEffect } from "react";
+import { Button } from "@mui/material";
+import { getIndigentData } from "@/services/indigentServices";
 
 const AddIndigentForm = () => {
-  const { form, fieldsDisabled, onInputChange } = useAddIndigent();
+  const form = useForm<Partial<IIndigentInfo>>({
+    defaultValues: {
+      governateId: "31",
+      cityId: "01",
+    },
+  });
+
+  const { control, handleSubmit, watch, setValue, formState } = form;
+  const { isValid, errors } = formState;
+
+  console.log(errors);
+
+  const values = watch();
+
+  useEffect(() => {
+    const { governorate, age } = pullDataFromEgyptianID(values.nid ?? "");
+    setValue("birthGov", governorate);
+    setValue("age", age);
+  }, [values.nid]);
 
   return (
-    <Form>
-      <TextInput
-        label="الرقم القومى"
-        placeholder="الرقم القومي"
+    <form
+      onSubmit={handleSubmit(() => {})}
+      className="relative grid grid-cols-1 gap-x-5 gap-y-3 md:grid-cols-2 xl:grid-cols-3"
+    >
+      <TextFieldController
         name="nid"
-        value={form?.nid ?? ""}
-        disabled={false}
-        onChange={onInputChange}
+        control={control}
+        label="الرقم القومي"
+        errorMessage={errors.nid?.message}
+        rules={{
+          required: { value: true, message: "قم بإدخال الرقم القومي" },
+          validate: {
+            isValid: (id: string | undefined) => {
+              return validateEgyptianNationalID(id) || "رقم قومي غير صحيح";
+            },
+            isUnique: async (id: string | undefined) => {
+              const { data } = await getIndigentData(id ?? "");
+              return !data || "رقم قومي مكرر";
+            },
+          },
+        }}
       />
 
-      <TextInput
-        label="الإسم رباعي"
-        placeholder="الإسم رباعي"
+      <TextFieldController
         name="name"
-        value={form?.name ?? ""}
-        disabled={fieldsDisabled}
-        onChange={onInputChange}
+        control={control}
+        label="الإسم رباعي"
+        errorMessage={errors.name?.message}
+        rules={{ required: { value: true, message: "قم بإدخال إسم الحالة" } }}
       />
 
-      <TextInput
-        label="رقم التليفون"
-        placeholder="رقم التليفون"
+      <TextFieldController
         name="phone"
-        value={form?.phone ?? ""}
-        disabled={fieldsDisabled}
-        onChange={onInputChange}
+        control={control}
+        label="رقم التليفون"
+        errorMessage={errors.phone?.message}
+        rules={{ required: { value: true, message: "قم بإدخال رقم تليفون الحالة" } }}
       />
 
-      <TextInput
-        label="العنوان"
-        placeholder="العنوان"
+      <TextFieldController
         name="address"
-        value={form?.address ?? ""}
-        disabled={fieldsDisabled}
-        onChange={onInputChange}
+        control={control}
+        label="العنوان"
+        errorMessage={errors.address?.message}
+        rules={{ required: { value: true, message: "قم بإدخال عنوان الحالة" } }}
       />
 
-      <SelectInput
-        label="نوع الحالة"
-        placeholder="نوع الحالة"
+      <SelectController
         name="indigencyTypeId"
-        value={form?.indigencyTypeId ?? "31"}
-        disabled={fieldsDisabled}
-        onChange={onInputChange}
+        control={control}
+        label="نوع الحالة"
+        errorMessage={errors.indigencyTypeId?.message}
         options={indigencyTypes}
+        rules={{ required: { value: true, message: "قم باختيار نوع الحالة" } }}
       />
 
-      <SelectInput
-        label="المنطقة / الحيّ"
-        placeholder="المنطقة / الحيّ"
+      <SelectController
         name="destrictId"
-        value={form?.destrictId ?? ""}
-        disabled={fieldsDisabled}
-        onChange={onInputChange}
-        options={districts}
+        control={control}
+        label="المنطقة / الحيّ"
+        errorMessage={errors.destrictId?.message}
+        options={destricts}
+        rules={{ required: { value: true, message: "قم باختيار المنطقة" } }}
       />
 
-      <SelectInput
-        label="المدينة"
-        placeholder="إختر المدينة"
-        name="cityId"
-        value={form?.cityId ?? "01"}
-        disabled
-        onChange={onInputChange}
-        options={cities}
-      />
+      <SelectController name="cityId" control={control} label="المدينة" options={cities} disabled />
 
-      <SelectInput
-        label="محافظة الإقامة"
-        placeholder="إختر المحافظة"
+      <SelectController
         name="governateId"
-        value={form?.governateId ?? "31"}
+        control={control}
+        label="محافظة الإقامة"
+        options={governates}
         disabled
-        onChange={onInputChange}
-        options={governates}
       />
 
-      <SelectInput
-        label="محافظة الميلاد"
-        placeholder="محافظة الميلاد"
+      <SelectController
         name="birthGov"
-        value={form?.birthGov ?? ""}
-        disabled={true}
-        onChange={onInputChange}
+        control={control}
+        label="محافظة الميلاد"
         options={governates}
+        disabled
       />
 
-      <TextInput
-        label="تاريخ الميلاد"
-        placeholder="تاريخ الميلاد"
-        name="birthDate"
-        value={form?.birthDate ? formatDate(form.birthDate) : ""}
-        disabled={true}
-        onChange={onInputChange}
-      />
+      <TextFieldController name="age" control={control} label="السن" disabled />
 
-      <TextInput
-        label="السنّ"
-        placeholder="السنّ"
-        name="age"
-        value={form?.age ?? ""}
-        disabled={true}
-        onChange={onInputChange}
-      />
-
-      {/* <SelectGender
-        label="الجنس"
-        placeholder=""
-        name="gender"
-        value={form?.gender ?? ""}
-        disabled={true}
-        onChange={onInputChange}
-      /> */}
-
-      <div className="md:col-span-2 xl:col-span-3">
-        <Button disabled={fieldsDisabled}>إضافة</Button>
-      </div>
-    </Form>
+      <Button type="submit" variant="contained" color="primary">
+        حفظ
+      </Button>
+    </form>
   );
 };
 

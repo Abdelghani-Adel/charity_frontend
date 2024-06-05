@@ -1,4 +1,6 @@
-export function validateEgyptianNationalID(id: string): boolean {
+export function validateEgyptianNationalID(id: string | undefined): boolean {
+  if (!id) return false;
+
   // Check if the input is a 14-digit number
   const idPattern = /^\d{14}$/;
   if (!idPattern.test(id)) {
@@ -95,7 +97,7 @@ function getBirthdate(id: string): Date | null {
 function getGender(nationalID: string): string {
   // Check if the national ID is a valid 14-digit number
   if (!/^\d{14}$/.test(nationalID)) {
-    throw new Error("Invalid national ID format. It should be a 14-digit number.");
+    return "";
   }
 
   const genderDigitStr = nationalID.substring(12, 13);
@@ -107,7 +109,7 @@ function getGender(nationalID: string): string {
 function getGovernorateCode(nationalID: string): string {
   // Check if the national ID is a valid 14-digit number
   if (!/^\d{14}$/.test(nationalID)) {
-    throw new Error("Invalid national ID format. It should be a 14-digit number.");
+    return "";
   }
 
   // Extract the governorate code part from the national ID (7th and 8th digits)
@@ -119,7 +121,7 @@ function getGovernorateCode(nationalID: string): string {
 function calculateAge(nationalID: string): string {
   // Check if the national ID is a valid 14-digit number
   if (!/^\d{14}$/.test(nationalID)) {
-    throw new Error("Invalid national ID format. It should be a 14-digit number.");
+    return "";
   }
 
   // Extract the birthdate part from the national ID

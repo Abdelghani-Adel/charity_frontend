@@ -2,50 +2,54 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 import jwt from "jsonwebtoken";
+import navLinks, { INavLink } from "@/assets/navigation_links";
 
-const protectedRoutes = {
-  "/dashboard": ["admin", "user"],
-  "/profile": ["user"],
-};
+const routes: INavLink[] = navLinks;
 
 export function authMiddleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
+  const token = request.cookies.get("charity_system_token");
 
-  // Check if the request is for a protected route
-  if (Object.keys(protectedRoutes).some((route) => pathname.startsWith(route))) {
-    const token = request.cookies.get("charity_system_token");
-
-    // If token is not present, redirect to login
-    if (!token) {
-      return NextResponse.redirect(new URL("/login", request.url));
-    }
-
-    try {
-      // Decode the token without verifying it
-      const decodedToken = jwt.decode(token.value);
-
-      // If decoding fails, redirect to login
-      if (!decodedToken) {
-        return NextResponse.redirect(new URL("/login", request.url));
-      }
-
-      // Get the required roles for the route
-      const requiredRoles = Object.keys(protectedRoutes).find((route) =>
-        pathname.startsWith(route)
-      );
-
-      const isAuthorized = protectedRoutes[requiredRoles].includes(decodedToken.role);
-
-      if (requiredRoles && !isAuthorized) {
-        // If the user's role is not authorized, redirect to forbidden page
-        return NextResponse.redirect(new URL("/forbidden", request.url));
-      }
-    } catch (error) {
-      // If any error occurs during decoding, redirect to login
-      return NextResponse.redirect(new URL("/login", request.url));
-    }
+  // NO TOKEN
+  if (!token) {
+    return NextResponse.redirect(new URL("/login", request.url));
   }
 
-  // Allow the request to proceed
+  try {
+    const decodedToken = jwt.decode(token.value) as IJwtToken;
+    const userRoles = decodedToken.roles;
+
+    // DECODE FAILURE
+    if (!decodedToken || !userRoles) {
+      return NextResponse.redirect(new URL("/login", request.url));
+    }
+
+    const requestedRoute = findLongestMatchingRoute(pathname);
+
+    // NO ROUTE => 404
+    if (!requestedRoute) {
+      return NextResponse.redirect(new URL("/404", request.url));
+    }
+
+    const requiredRoles: string[] = requestedRoute.roles;
+    const isAuthorized = requiredRoles.some((role) => userRoles.includes(role));
+
+    // NOT AUTHORIZED
+    if (!isAuthorized) {
+      return NextResponse.redirect(new URL("/403", request.url));
+    }
+  } catch (error) {
+    console.log(error);
+    return NextResponse.redirect(new URL("/login", request.url));
+  }
+
+  // AUTHORIZED
   return NextResponse.next();
 }
+
+// Function to find the longest matching route
+const findLongestMatchingRoute = (path: string) => {
+  const matchingRoutes = routes.filter((route) => path.startsWith(route.href));
+  if (matchingRoutes.length === 0) return undefined;
+  return matchingRoutes.reduce((a, b) => (a.href.length > b.href.length ? a : b));
+};

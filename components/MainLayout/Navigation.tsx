@@ -1,54 +1,40 @@
+import { TOKEN_NAME } from "@/assets/enums";
+import navLinks, { INavLink } from "@/assets/navigation_links";
+import { getCookie } from "@/utils/cookies";
+import { decodeToken } from "@/utils/jwt";
 import Link from "next/link";
-import React, { useState } from "react";
-import { FaUsersLine } from "react-icons/fa6";
-import { HiOutlineDocumentReport } from "react-icons/hi";
-import { IoChevronDownOutline, IoHomeOutline } from "react-icons/io5";
-import { LiaIdCard } from "react-icons/lia";
+import { useEffect, useState } from "react";
+import { IoChevronDownOutline } from "react-icons/io5";
 import { v4 } from "uuid";
 
-type INavItem = {
-  href: string;
-  label: string;
-  icon: React.FC;
-  children: { href: string; label: string }[];
+const getLinksForUser = (userRoles: string[]) => {
+  return navLinks
+    .filter((item) => item.roles.some((role) => userRoles.includes(role)))
+    .map((item) => ({
+      ...item,
+      children: item.children.filter((child) =>
+        child.roles.some((role) => userRoles.includes(role))
+      ),
+    }));
 };
 
-const navItems: INavItem[] = [
-  {
-    href: "/",
-    label: "الصفحة الرئيسية",
-    icon: IoHomeOutline,
-    children: [],
-  },
-  {
-    href: "/indigents",
-    label: "الحالات",
-    icon: LiaIdCard,
-    children: [
-      { href: "/indigents/add", label: "إضافة" },
-      { href: "/indigents/inquery", label: "إستعلام" },
-      { href: "/indigents/edit", label: "طلب تعديل" },
-    ],
-  },
-  {
-    href: "/aids",
-    label: "المساعدات",
-    icon: FaUsersLine,
-    children: [{ href: "/profile/settings", label: "إضافة" }],
-  },
-  {
-    href: "/reports",
-    label: "التقارير",
-    icon: HiOutlineDocumentReport,
-    children: [{ href: "/reports/inquery", label: "إستعلام عن حالة" }],
-  },
-];
-
 const Navigation = () => {
+  const [userRoles, setUserRoles] = useState<string[]>([]);
+
+  useEffect(() => {
+    const token = getCookie(TOKEN_NAME);
+    const decodedToken = decodeToken(token ?? "");
+    if (decodedToken) {
+      setUserRoles(decodedToken.roles);
+    }
+  }, []);
+
+  const userLinks = getLinksForUser(userRoles);
+
   return (
     <nav className="w-full">
       <ul className="flex flex-col space-y-4">
-        {navItems.map((item) => (
+        {userLinks.map((item) => (
           <NavItem item={item} key={v4()} />
         ))}
       </ul>
@@ -56,12 +42,7 @@ const Navigation = () => {
   );
 };
 
-type INavitemProps = {
-  item: INavItem;
-};
-
-const NavItem = (props: INavitemProps) => {
-  const { item } = props;
+const NavItem = ({ item }: { item: INavLink }) => {
   const [isOpened, setIsOpened] = useState(false);
 
   const toggle = () => setIsOpened(!isOpened);

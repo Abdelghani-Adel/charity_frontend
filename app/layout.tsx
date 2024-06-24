@@ -1,7 +1,7 @@
-import DesktopSidebar from "@/components/MainLayout/DesktopSidebar";
-import Header from "@/components/MainLayout/Header";
 import "@/styles/index.css";
 import type { Metadata } from "next";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export const metadata: Metadata = {
   title: "Charity System",
@@ -18,15 +18,8 @@ export default function RootLayout(props: Readonly<IProps>) {
   return (
     <html lang="ar">
       <body dir="rtl">
-        <main className="h-screen overflow-hidden text-right">
-          <Header />
-
-          <div className="flex h-[92vh]">
-            <DesktopSidebar />
-
-            <div className="flex-grow p-4 overflow-auto">{children}</div>
-          </div>
-        </main>
+        <ToastContainer />
+        {children}
       </body>
     </html>
   );

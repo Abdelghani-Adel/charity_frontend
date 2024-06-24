@@ -17,7 +17,7 @@ export type INavLink = {
 
 const navLinks: INavLink[] = [
   {
-    href: "/",
+    href: "/dashboard",
     label: "الصفحة الرئيسية",
     icon: IoHomeOutline,
     roles: [root, admin, charityAdmin, charityUser],

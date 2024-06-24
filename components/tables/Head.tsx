@@ -1,32 +1,23 @@
-import { IIndigentRecord } from "@/types/api_responses/GetAllIndigents";
 import Box from "@mui/material/Box";
 import TableCell from "@mui/material/TableCell";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import TableSortLabel from "@mui/material/TableSortLabel";
 import { visuallyHidden } from "@mui/utils";
-import * as React from "react";
+import { HeadCell } from "./types";
 
-interface HeadCell {
-  disablePadding: boolean;
-  id: keyof IIndigentRecord;
-  label: string;
-  numeric: boolean;
-}
-
-interface EnhancedTableProps {
-  onRequestSort: (event: React.MouseEvent<unknown>, property: keyof IIndigentRecord) => void;
+interface TableHeadProps {
+  headCells: HeadCell[];
   order: "asc" | "desc";
   orderBy: string;
-  rowCount: number;
+  onRequestSort: (event: React.MouseEvent<unknown>, property: string) => void;
 }
 
-function EnhancedTableHead(props: EnhancedTableProps) {
-  const { order, orderBy, rowCount, onRequestSort } = props;
-  const createSortHandler =
-    (property: keyof IIndigentRecord) => (event: React.MouseEvent<unknown>) => {
-      onRequestSort(event, property);
-    };
+export default function Head(props: TableHeadProps) {
+  const { headCells, order, orderBy, onRequestSort } = props;
+  const createSortHandler = (property: string) => (event: React.MouseEvent<unknown>) => {
+    onRequestSort(event, property);
+  };
 
   return (
     <TableHead>
@@ -56,5 +47,3 @@ function EnhancedTableHead(props: EnhancedTableProps) {
     </TableHead>
   );
 }
-
-export default TableHead;

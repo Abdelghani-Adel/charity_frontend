@@ -9,8 +9,14 @@ const routes: INavLink[] = navLinks;
 export function authMiddleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
   const token = request.cookies.get("charity_system_token");
+  const requestedRoute = findLongestMatchingRoute(pathname);
 
-  // NO TOKEN
+  // route is not secured
+  if (!requestedRoute) {
+    return NextResponse.next();
+  }
+
+  // secured route with not token
   if (!token) {
     return NextResponse.redirect(new URL("/login", request.url));
   }
@@ -22,13 +28,6 @@ export function authMiddleware(request: NextRequest) {
     // DECODE FAILURE
     if (!decodedToken || !userRoles) {
       return NextResponse.redirect(new URL("/login", request.url));
-    }
-
-    const requestedRoute = findLongestMatchingRoute(pathname);
-
-    // NO ROUTE => 404
-    if (!requestedRoute) {
-      return NextResponse.redirect(new URL("/404", request.url));
     }
 
     const requiredRoles: string[] = requestedRoute.roles;

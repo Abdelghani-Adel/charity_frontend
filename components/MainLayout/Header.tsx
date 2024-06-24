@@ -13,11 +13,11 @@ const Header = () => {
   };
 
   return (
-    <div className="w-full p-3 flex justify-between align-middle h-[8vh] text-white bg-secondary-dark">
+    <div className="w-full p-3 flex justify-between align-middle h-[8vh] text-white bg-primary">
       <MobileSidebarToggler onToggle={toggleSidebar} />
 
       <Link href="/" className="relative w-[90px] h-[40px] mr-auto">
-        <Image src="/images/logo.png" fill alt="logo" />
+        {/* <Image src="/images/logo.png" fill alt="logo" /> */}
       </Link>
 
       <MobileSidebar isCollapsed={isCollapsed} />

@@ -16,7 +16,7 @@ interface ReusableTableProps {
   rows: any[];
 }
 
-export default function ReusableTable({ columns, headCells, rows }: ReusableTableProps) {
+export default function ReusableTable({ columns, headCells, rows }: Readonly<ReusableTableProps>) {
   const [order, setOrder] = useState<"asc" | "desc">("asc");
   const [orderBy, setOrderBy] = useState<string>(columns[0]);
   const [page, setPage] = useState(0);
@@ -52,14 +52,14 @@ export default function ReusableTable({ columns, headCells, rows }: ReusableTabl
     <Box sx={{ width: "100%" }}>
       <Paper sx={{ width: "100%", mb: 2 }}>
         <TableContainer>
-          <Table sx={{ minWidth: 750 }} aria-labelledby="tableTitle">
+          <Table sx={{ minWidth: 750 }} aria-labelledby="tableTitle" align="center">
             <Head
               headCells={headCells}
               order={order}
               orderBy={orderBy}
               onRequestSort={handleRequestSort}
             />
-            <Body rows={rows} columns={columns} visibleRows={visibleRows} emptyRows={emptyRows} />
+            <Body columns={columns} rows={visibleRows} />
           </Table>
         </TableContainer>
         <TablePagination

@@ -1,3 +1,5 @@
+import LoadingScreen from "@/components/ui/LoadingScreen/LoadingScreen";
+import ReduxProvider from "@/redux/ReduxProvider";
 import "@/styles/index.css";
 import type { Metadata } from "next";
 import { ToastContainer } from "react-toastify";
@@ -17,9 +19,12 @@ export default function RootLayout(props: Readonly<IProps>) {
 
   return (
     <html lang="ar">
-      <body dir="rtl">
-        <ToastContainer />
-        {children}
+      <body dir="rtl" className="text-right">
+        <ReduxProvider>
+          <LoadingScreen />
+          <ToastContainer />
+          {children}
+        </ReduxProvider>
       </body>
     </html>
   );

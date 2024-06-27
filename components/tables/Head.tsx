@@ -25,8 +25,7 @@ export default function Head(props: TableHeadProps) {
         {headCells.map((headCell) => (
           <TableCell
             key={headCell.id}
-            align={headCell.numeric ? "right" : "left"}
-            padding={headCell.disablePadding ? "none" : "normal"}
+            align="right"
             sortDirection={orderBy === headCell.id ? order : false}
           >
             <TableSortLabel

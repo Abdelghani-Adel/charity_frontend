@@ -3,29 +3,22 @@ import TableCell from "@mui/material/TableCell";
 import TableRow from "@mui/material/TableRow";
 
 interface TableBodyProps {
-  rows: any[];
   columns: string[];
-  visibleRows: any[];
-  emptyRows: number;
+  rows: any[];
 }
 
-export default function Body({ rows, columns, visibleRows, emptyRows }: TableBodyProps) {
+export default function Body({ columns, rows }: TableBodyProps) {
   return (
     <TableBody>
-      {visibleRows.map((row, index) => (
+      {rows.map((row, index) => (
         <TableRow hover role="checkbox" tabIndex={-1} key={index} sx={{ cursor: "pointer" }}>
           {columns.map((column) => (
-            <TableCell key={column} align="left">
+            <TableCell key={column} align="right">
               {row[column] ?? ""}
             </TableCell>
           ))}
         </TableRow>
       ))}
-      {emptyRows > 0 && (
-        <TableRow style={{ height: 53 * emptyRows }}>
-          <TableCell colSpan={columns.length} />
-        </TableRow>
-      )}
     </TableBody>
   );
 }

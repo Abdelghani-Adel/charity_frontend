@@ -1,14 +1,14 @@
-import destricts from "@/public/data/districts.json";
-import indigencyTypes from "@/public/data/indigencyTypes.json";
 import cities from "@/public/data/cities.json";
+import destricts from "@/public/data/districts.json";
 import governates from "@/public/data/gov.json";
-import { useForm, Validate } from "react-hook-form";
-import SelectController from "../ui/SelectController";
-import TextFieldController from "../ui/TextFieldController";
-import { pullDataFromEgyptianID, validateEgyptianNationalID } from "@/utils/egyptianID";
-import { useEffect } from "react";
-import { Button } from "@mui/material";
+import indigencyTypes from "@/public/data/indigencyTypes.json";
 import { getIndigentData } from "@/services/indigentServices";
+import { pullDataFromEgyptianID, validateEgyptianNationalID } from "@/utils/egyptianID";
+import { Button } from "@mui/material";
+import { useEffect } from "react";
+import { useForm } from "react-hook-form";
+import SelectController from "../ui/forms-components/SelectController";
+import TextFieldController from "../ui/forms-components/TextFieldController";
 
 const AddIndigentForm = () => {
   const form = useForm<Partial<IIndigentInfo>>({
@@ -20,8 +20,6 @@ const AddIndigentForm = () => {
 
   const { control, handleSubmit, watch, setValue, formState } = form;
   const { isValid, errors } = formState;
-
-  console.log(errors);
 
   const values = watch();
 

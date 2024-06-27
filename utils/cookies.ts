@@ -11,7 +11,8 @@ export function setCookie(
   expiration: string
 ): void {
   const date = new Date();
-  date.setTime(date.getTime() + 1 * 60 * 60 * 1000);
+  const egyptianOffset = 2; // Egypt Standard Time (EET) is UTC+2
+  date.setTime(date.getTime() + (1 + egyptianOffset) * 60 * 60 * 1000);
   const expires = "expires=" + date.toUTCString();
   document.cookie = `${name}=${value}; ${expires}; path=/`;
 }

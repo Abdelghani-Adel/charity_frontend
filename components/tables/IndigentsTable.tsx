@@ -11,9 +11,11 @@ import TablePagination from "@mui/material/TablePagination";
 import TableRow from "@mui/material/TableRow";
 import TableSortLabel from "@mui/material/TableSortLabel";
 import { visuallyHidden } from "@mui/utils";
-import * as React from "react";
 import { HeadCell } from "./types";
 import ReusableTable from "./Table";
+import { useEffect, useState } from "react";
+import IApiRes_GetAllIndigents from "@/types/api_responses/IApiRes_GetAllIndigents";
+import { getAllIndigents } from "@/services/indigentServices";
 
 const rows = [
   {
@@ -99,5 +101,15 @@ const headCells: HeadCell[] = [
 const columns = headCells.map((cell) => cell.id);
 
 export default function IndigentsTable() {
-  return <ReusableTable columns={columns} headCells={headCells} rows={rows} />;
+  const [indigentList, setIndigentList] = useState<IApiRes_GetAllIndigents>([]);
+
+  useEffect(() => {
+    async function fetchIndigents() {
+      const { data } = await getAllIndigents();
+      if (data) setIndigentList(data);
+    }
+    fetchIndigents();
+  }, []);
+
+  return <ReusableTable columns={columns} headCells={headCells} rows={indigentList} />;
 }

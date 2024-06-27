@@ -1,5 +1,26 @@
+import IApiRes_GetAllIndigents from "@/types/api_responses/IApiRes_GetAllIndigents";
 import apiClient from "./clients";
-import indigentList from "@/public/data/indigent.json";
+import { AxiosResponse } from "axios";
+import IApiRes_Global from "@/types/api_responses/IApiRes_Global";
+
+export async function getAllIndigents() {
+  let data: IApiRes_GetAllIndigents | null = null;
+  let error: string | null = null;
+
+  try {
+    const response: AxiosResponse<IApiRes_Global<IApiRes_GetAllIndigents>> = await apiClient.get(
+      "/api/indigent"
+    );
+    if (response.data.success && response.data.data) {
+      data = response.data.data;
+      console.log(data);
+    }
+  } catch (err) {
+    error = "Error: Couldn't get the data";
+  }
+
+  return { data, error };
+}
 
 export const getIndigentData = async (nid: string) => {
   let data = null;

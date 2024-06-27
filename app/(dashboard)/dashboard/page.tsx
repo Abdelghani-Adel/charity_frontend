@@ -1,3 +1,4 @@
+"use client";
 import Button from "@/components/ui/Button";
 import ButtonLink from "@/components/ui/ButtonLink";
 import PageTitle from "@/components/ui/PageTitle";
@@ -7,7 +8,9 @@ import { IoPersonAddOutline } from "react-icons/io5";
 import { RiAlarmWarningLine } from "react-icons/ri";
 import { TbReportSearch } from "react-icons/tb";
 
-export default function Home() {
+export default async function Home() {
+  await new Promise((resolve) => setTimeout(resolve, 50000));
+
   return (
     <div className="flex flex-col gap-8">
       <div>

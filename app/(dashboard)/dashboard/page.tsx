@@ -9,7 +9,7 @@ import { RiAlarmWarningLine } from "react-icons/ri";
 import { TbReportSearch } from "react-icons/tb";
 
 export default async function Home() {
-  await new Promise((resolve) => setTimeout(resolve, 50000));
+  // await new Promise((resolve) => setTimeout(resolve, 50000));
 
   return (
     <div className="flex flex-col gap-8">

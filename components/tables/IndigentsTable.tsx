@@ -16,48 +16,7 @@ import ReusableTable from "./Table";
 import { useEffect, useState } from "react";
 import IApiRes_GetAllIndigents from "@/types/api_responses/IApiRes_GetAllIndigents";
 import { getAllIndigents } from "@/services/indigentServices";
-
-const rows = [
-  {
-    indigent_id: 1082,
-    national_id: "27811152702582",
-    indigent_name: "فاطمه رضى حسن ابراهيم",
-    phone: null,
-    kids: null,
-    indigency_type_name: "أيتام",
-    governorate_name: "البحر الأحمر",
-    city_name: "الغردقة",
-    district_name: "الدهار",
-    address: "حفر الباطن",
-    is_active: true,
-  },
-  {
-    indigent_id: 1083,
-    national_id: "27609152602282",
-    indigent_name: "مرفت عبدالنعيم على بيومى",
-    phone: "01119968564",
-    kids: null,
-    indigency_type_name: "أيتام",
-    governorate_name: "البحر الأحمر",
-    city_name: "الغردقة",
-    district_name: "الدهار",
-    address: null,
-    is_active: true,
-  },
-  {
-    indigent_id: 1084,
-    national_id: "28707180102606",
-    indigent_name: "شيماء فتح الله عبد بركات",
-    phone: "01018656992",
-    kids: null,
-    indigency_type_name: "أيتام",
-    governorate_name: "البحر الأحمر",
-    city_name: "الغردقة",
-    district_name: "الدهار",
-    address: "الاحياء",
-    is_active: true,
-  },
-];
+import { useRouter } from "next/navigation";
 
 const headCells: HeadCell[] = [
   {
@@ -101,7 +60,8 @@ const headCells: HeadCell[] = [
 const columns = headCells.map((cell) => cell.id);
 
 export default function IndigentsTable() {
-  const [indigentList, setIndigentList] = useState<IApiRes_GetAllIndigents>([]);
+  const router = useRouter();
+  const [indigentList, setIndigentList] = useState<IApiRes_GetAllIndigents[]>([]);
 
   useEffect(() => {
     async function fetchIndigents() {
@@ -111,5 +71,16 @@ export default function IndigentsTable() {
     fetchIndigents();
   }, []);
 
-  return <ReusableTable columns={columns} headCells={headCells} rows={indigentList} />;
+  const onRowClick = (row: IApiRes_GetAllIndigents) => {
+    router.push(`/indigents/${row.indigent_id}`);
+  };
+
+  return (
+    <ReusableTable
+      columns={columns}
+      headCells={headCells}
+      rows={indigentList}
+      onRowClick={onRowClick}
+    />
+  );
 }

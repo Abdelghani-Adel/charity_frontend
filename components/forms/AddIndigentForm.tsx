@@ -2,7 +2,6 @@ import cities from "@/public/data/cities.json";
 import destricts from "@/public/data/districts.json";
 import governates from "@/public/data/gov.json";
 import indigencyTypes from "@/public/data/indigencyTypes.json";
-import { getIndigentData } from "@/services/indigentServices";
 import { pullDataFromEgyptianID, validateEgyptianNationalID } from "@/utils/egyptianID";
 import { Button } from "@mui/material";
 import { useEffect } from "react";
@@ -45,10 +44,10 @@ const AddIndigentForm = () => {
             isValid: (id: string | undefined) => {
               return validateEgyptianNationalID(id) || "رقم قومي غير صحيح";
             },
-            isUnique: async (id: string | undefined) => {
-              const { data } = await getIndigentData(id ?? "");
-              return !data || "رقم قومي مكرر";
-            },
+            // isUnique: async (id: string | undefined) => {
+            //   const { data } = await getIndigentData(id ?? "");
+            //   return !data || "رقم قومي مكرر";
+            // },
           },
         }}
       />

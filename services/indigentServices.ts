@@ -2,18 +2,18 @@ import IApiRes_GetAllIndigents from "@/types/api_responses/IApiRes_GetAllIndigen
 import apiClient from "./clients";
 import { AxiosResponse } from "axios";
 import IApiRes_Global from "@/types/api_responses/IApiRes_Global";
+import { IApiRes_GetIndigentDetails } from "@/types/api_responses/IApiRes_GetIndigentDetails";
 
 export async function getAllIndigents() {
-  let data: IApiRes_GetAllIndigents | null = null;
+  let data: IApiRes_GetAllIndigents[] | null = null;
   let error: string | null = null;
 
   try {
-    const response: AxiosResponse<IApiRes_Global<IApiRes_GetAllIndigents>> = await apiClient.get(
+    const response: AxiosResponse<IApiRes_Global<IApiRes_GetAllIndigents[]>> = await apiClient.get(
       "/api/indigent"
     );
     if (response.data.success && response.data.data) {
       data = response.data.data;
-      console.log(data);
     }
   } catch (err) {
     error = "Error: Couldn't get the data";
@@ -22,20 +22,16 @@ export async function getAllIndigents() {
   return { data, error };
 }
 
-export const getIndigentData = async (nid: string) => {
+export const getIndigentDetails = async (id: string) => {
   let data = null;
   let error = null;
 
   try {
-    const response = await apiClient.get("/data/indigent.json");
-    const allData = response.data;
-
-    // const list: Partial<IIndigentInfo>[] = indigentList;
-
-    data = allData.find((item: IIndigentInfo) => item.nid === nid);
-
-    if (!data) {
-      error = "Error: No data found for the provided NID";
+    const response: AxiosResponse<IApiRes_Global<IApiRes_GetIndigentDetails>> = await apiClient.get(
+      `/api/indigent/${id}`
+    );
+    if (response.data.success && response.data.data) {
+      data = response.data.data;
     }
   } catch (err) {
     error = "Error: Couldn't get the data";

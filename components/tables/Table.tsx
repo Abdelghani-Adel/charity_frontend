@@ -14,9 +14,11 @@ interface ReusableTableProps {
   columns: string[];
   headCells: HeadCell[];
   rows: any[];
+  onRowClick?: (row: any) => void;
 }
 
-export default function ReusableTable({ columns, headCells, rows }: Readonly<ReusableTableProps>) {
+export default function ReusableTable(props: Readonly<ReusableTableProps>) {
+  const { columns, headCells, rows, onRowClick } = props;
   const [order, setOrder] = useState<"asc" | "desc">("asc");
   const [orderBy, setOrderBy] = useState<string>(columns[0]);
   const [page, setPage] = useState(0);
@@ -50,14 +52,14 @@ export default function ReusableTable({ columns, headCells, rows }: Readonly<Reu
     <Box sx={{ width: "100%" }}>
       <Paper sx={{ width: "100%", mb: 2 }}>
         <TableContainer>
-          <Table sx={{ minWidth: 750 }} aria-labelledby="tableTitle" align="center">
+          <Table className="min-w-max max-w-full mb-2" aria-labelledby="tableTitle" align="center">
             <Head
               headCells={headCells}
               order={order}
               orderBy={orderBy}
               onRequestSort={handleRequestSort}
             />
-            <Body columns={columns} rows={visibleRows} />
+            <Body columns={columns} rows={visibleRows} onRowClick={onRowClick} />
           </Table>
         </TableContainer>
         <TablePagination

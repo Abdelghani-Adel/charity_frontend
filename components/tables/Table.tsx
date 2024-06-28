@@ -11,30 +11,31 @@ import Head from "./Head";
 import Body from "./Body";
 
 interface ReusableTableProps {
-  columns: string[];
   headCells: HeadCell[];
   rows: any[];
   onRowClick?: (row: any) => void;
 }
 
 export default function ReusableTable(props: Readonly<ReusableTableProps>) {
-  const { columns, headCells, rows, onRowClick } = props;
+  const { headCells, rows, onRowClick } = props;
+  const columns = headCells.map((cell) => cell.id);
+
   const [order, setOrder] = useState<"asc" | "desc">("asc");
   const [orderBy, setOrderBy] = useState<string>(columns[0]);
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(20);
 
-  const handleRequestSort = (event: React.MouseEvent<unknown>, property: string) => {
+  const sortHandler = (property: string) => {
     const isAsc = orderBy === property && order === "asc";
     setOrder(isAsc ? "desc" : "asc");
     setOrderBy(property);
   };
 
-  const handleChangePage = (event: unknown, newPage: number) => {
+  const pageChangeHandler = (event: unknown, newPage: number) => {
     setPage(newPage);
   };
 
-  const handleChangeRowsPerPage = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const rowsPerPageHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
     setRowsPerPage(parseInt(event.target.value, 10));
     setPage(0);
   };
@@ -52,16 +53,18 @@ export default function ReusableTable(props: Readonly<ReusableTableProps>) {
     <Box sx={{ width: "100%" }}>
       <Paper sx={{ width: "100%", mb: 2 }}>
         <TableContainer>
-          <Table className="min-w-max max-w-full mb-2" aria-labelledby="tableTitle" align="center">
+          <Table className="min-w-max max-w-full mb-2" align="center">
             <Head
               headCells={headCells}
               order={order}
               orderBy={orderBy}
-              onRequestSort={handleRequestSort}
+              onRequestSort={sortHandler}
             />
             <Body columns={columns} rows={visibleRows} onRowClick={onRowClick} />
           </Table>
         </TableContainer>
+
+        {}
         <TablePagination
           rowsPerPageOptions={[5, 10, 25]}
           component="div"
@@ -69,8 +72,8 @@ export default function ReusableTable(props: Readonly<ReusableTableProps>) {
           rowsPerPage={rowsPerPage}
           page={page}
           dir="ltr"
-          onPageChange={handleChangePage}
-          onRowsPerPageChange={handleChangeRowsPerPage}
+          onPageChange={pageChangeHandler}
+          onRowsPerPageChange={rowsPerPageHandler}
         />
       </Paper>
     </Box>

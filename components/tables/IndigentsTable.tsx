@@ -57,8 +57,6 @@ const headCells: HeadCell[] = [
   },
 ];
 
-const columns = headCells.map((cell) => cell.id);
-
 export default function IndigentsTable() {
   const router = useRouter();
   const [indigentList, setIndigentList] = useState<IApiRes_GetAllIndigents[]>([]);
@@ -75,12 +73,5 @@ export default function IndigentsTable() {
     router.push(`/indigents/${row.indigent_id}`);
   };
 
-  return (
-    <ReusableTable
-      columns={columns}
-      headCells={headCells}
-      rows={indigentList}
-      onRowClick={onRowClick}
-    />
-  );
+  return <ReusableTable headCells={headCells} rows={indigentList} onRowClick={onRowClick} />;
 }

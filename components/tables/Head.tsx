@@ -10,13 +10,14 @@ interface TableHeadProps {
   headCells: HeadCell[];
   order: "asc" | "desc";
   orderBy: string;
-  onRequestSort: (event: React.MouseEvent<unknown>, property: string) => void;
+  onRequestSort: (property: string) => void;
 }
 
-export default function Head(props: TableHeadProps) {
+export default function Head(props: Readonly<TableHeadProps>) {
   const { headCells, order, orderBy, onRequestSort } = props;
-  const createSortHandler = (property: string) => (event: React.MouseEvent<unknown>) => {
-    onRequestSort(event, property);
+
+  const createSortHandler = (property: string) => () => {
+    onRequestSort(property);
   };
 
   return (

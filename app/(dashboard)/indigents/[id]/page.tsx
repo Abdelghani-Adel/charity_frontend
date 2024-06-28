@@ -26,10 +26,10 @@ const Page = () => {
   return (
     <div>
       <PageTitle title="المعلومات الشخصية" />
-      <ReusableTable columns={infoColumns} headCells={infoHeader} rows={[details.info]} />
+      <ReusableTable headCells={infoHeader} rows={[details.info]} />
 
       <PageTitle title="المساعدات" />
-      <ReusableTable columns={aidsColumns} headCells={aidsHeader} rows={details.aids ?? []} />
+      <ReusableTable headCells={aidsHeader} rows={details.aids ?? []} />
     </div>
   );
 };
@@ -54,7 +54,6 @@ const aidsHeader: HeadCell[] = [
     label: "تاريخ المساعدة",
   },
 ];
-const aidsColumns = aidsHeader.map((cell) => cell.id);
 
 const infoHeader: HeadCell[] = [
   {
@@ -94,5 +93,3 @@ const infoHeader: HeadCell[] = [
     label: "العنوان",
   },
 ];
-
-const infoColumns = infoHeader.map((cell) => cell.id);

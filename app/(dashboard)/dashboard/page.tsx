@@ -36,11 +36,11 @@ export default async function Home() {
       <div>
         <PageTitle title="المساعدات" />
         <div className="flex flex-col lg:flex-row gap-3">
-          <ButtonLink href="/indigents/add">
+          <ButtonLink href="/aids/add">
             <IoMdAddCircleOutline />
             إضافة مساعدة
           </ButtonLink>
-          <ButtonLink href="/indigents/add">
+          <ButtonLink href="#">
             <IoMdAddCircleOutline />
             إبلاغ بمساعدة عاجلة
           </ButtonLink>

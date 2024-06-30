@@ -1,9 +1,10 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 import { authMiddleware } from "./middleware/authMiddleware";
+import { hideLogin } from "./middleware/hideLogin";
 
 export default function middleware(request: NextRequest) {
-  return runMiddlewares(request, [authMiddleware]);
+  return runMiddlewares(request, [hideLogin, authMiddleware]);
 }
 
 async function runMiddlewares(request: NextRequest, middlewares: Function[]) {

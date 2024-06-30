@@ -49,7 +49,7 @@ const navLinks: INavLink[] = [
     roles: [root, admin, charityAdmin, charityUser],
     children: [
       {
-        href: "/profile/settings",
+        href: "/aids/add",
         label: "إضافة",
         roles: [root, admin, charityAdmin, charityUser],
       },

@@ -29,12 +29,12 @@ const Navigation = () => {
     }
   }, []);
 
-  const userLinks = getLinksForUser(userRoles);
+  // const userLinks = getLinksForUser(userRoles);
 
   return (
     <nav className="w-full">
       <ul className="flex flex-col space-y-4">
-        {userLinks.map((item) => (
+        {navLinks.map((item) => (
           <NavItem item={item} key={v4()} />
         ))}
       </ul>

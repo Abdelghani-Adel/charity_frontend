@@ -2,17 +2,13 @@ import { FormControl, InputLabel, MenuItem, Select, FormHelperText } from "@mui/
 import { Controller, Control, FieldValues, Path, RegisterOptions } from "react-hook-form";
 import { v4 } from "uuid";
 import { SelectProps } from "@mui/material/Select";
-
-interface Option {
-  value: string;
-  label: string;
-}
+import { IApiRes_GetListOptions } from "@/types/api_responses/IApiRes_GetListOptions";
 
 type SelectControllerProps<T extends FieldValues, K extends Path<T>> = {
   name: K;
   control: Control<T>;
   label: string;
-  options: Option[];
+  options: IApiRes_GetListOptions[];
   rules?: RegisterOptions<T, K>;
   errorMessage?: string;
 } & Omit<SelectProps, "name" | "control" | "defaultValue" | "value" | "error">;

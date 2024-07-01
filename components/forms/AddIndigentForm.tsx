@@ -43,13 +43,15 @@ const AddIndigentForm = () => {
       if (data) {
         reset();
         toast.success("تم إضافة الحالة بنجاح!");
+      } else {
+        setError("national_id", {
+          type: "manual",
+          message: "رقم قومي مكرر",
+        });
       }
     } catch (error) {
       console.error(error);
-      setError("national_id", {
-        type: "manual",
-        message: "رقم قومي مكرر",
-      });
+      
     }
     dispatch(loadingActions.stopLoading());
   };

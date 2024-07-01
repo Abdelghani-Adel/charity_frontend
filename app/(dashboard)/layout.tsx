@@ -15,7 +15,7 @@ export default function RootLayout(props: Readonly<IProps>) {
   const { children } = props;
 
   return (
-    <main className="h-screen overflow-hidden text-right">
+    <main className="text-right">
       <Header />
 
       <div className="flex h-[92vh]">

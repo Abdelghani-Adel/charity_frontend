@@ -18,7 +18,7 @@ export default function RootLayout(props: Readonly<IProps>) {
   const { children } = props;
 
   return (
-    <html lang="ar">
+    <html lang="ar" className="h-screen overflow-hidden ">
       <body dir="rtl" className="text-right">
         <ReduxProvider>
           <LoadingScreen />

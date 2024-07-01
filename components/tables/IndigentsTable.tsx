@@ -18,42 +18,107 @@ import IApiRes_GetAllIndigents from "@/types/api_responses/IApiRes_GetAllIndigen
 import { getAllIndigents } from "@/services/indigentServices";
 import { useRouter } from "next/navigation";
 
-const headCells: HeadCell[] = [
+import MUIDataTable, { MUIDataTableColumnDef } from "mui-datatables";
+
+const options = {
+  filterType: "checkbox",
+};
+
+const headCells: MUIDataTableColumnDef[] = [
   {
-    id: "national_id",
+    name: "indigent_id",
+    label: "كود الحالة",
+    options: {
+      print: true,
+      filter: false,
+      sort: false,
+    },
+  },
+  {
+    name: "national_id",
     label: "الرقم القومي",
+    options: {
+      print: true,
+      filter: false,
+      sort: false,
+    },
   },
   {
-    id: "indigent_name",
+    name: "indigent_name",
     label: "الإسم",
+    options: {
+      print: true,
+      filter: false,
+      sort: false,
+    },
   },
   {
-    id: "phone",
+    name: "phone",
     label: "الهاتف",
+    options: {
+      print: false,
+      filter: false,
+      sort: false,
+      searchable: false,
+    },
   },
   {
-    id: "kids",
+    name: "kids",
     label: "عدد الأطفال",
+    options: {
+      print: true,
+      filter: false,
+      sort: false,
+      searchable: false,
+    },
   },
   {
-    id: "indigency_type_name",
+    name: "indigency_type_name",
     label: "نوع الإحتياج",
+    options: {
+      print: true,
+      searchable: false,
+    },
   },
   {
-    id: "governorate_name",
+    name: "governorate_name",
     label: "المحافظة",
+    options: {
+      print: false,
+      filter: false,
+      sort: false,
+      searchable: false,
+    },
   },
   {
-    id: "city_name",
+    name: "city_name",
     label: "المدينة",
+    options: {
+      print: false,
+      filter: false,
+      sort: false,
+      searchable: false,
+    },
   },
   {
-    id: "district_name",
+    name: "district_name",
     label: "الحي",
+    options: {
+      print: true,
+      filter: false,
+      sort: false,
+      searchable: false,
+    },
   },
   {
-    id: "address",
+    name: "address",
     label: "العنوان",
+    options: {
+      print: false,
+      filter: false,
+      sort: false,
+      searchable: false,
+    },
   },
 ];
 
@@ -69,9 +134,26 @@ export default function IndigentsTable() {
     fetchIndigents();
   }, []);
 
-  const onRowClick = (row: IApiRes_GetAllIndigents) => {
-    router.push(`/indigents/${row.indigent_id}`);
+  const onRowClick = (row: string[], meta: any) => {
+    router.push(`/indigents/${row[0]}`);
   };
 
-  return <ReusableTable headCells={headCells} rows={indigentList} onRowClick={onRowClick} />;
+  return (
+    <div dir="ltr" className="text-right">
+      <MUIDataTable
+        title={"الحالات"}
+        data={indigentList}
+        columns={headCells}
+        options={{
+          filterType: "multiselect",
+          fixedHeader: true,
+          onRowClick: onRowClick,
+          responsive: "standard",
+          selectableRows: "none",
+        }}
+      />
+    </div>
+  );
+
+  // return <ReusableTable headCells={headCells} rows={indigentList} onRowClick={onRowClick} />;
 }

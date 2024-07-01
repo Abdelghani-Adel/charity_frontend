@@ -64,7 +64,6 @@ export default function ReusableTable(props: Readonly<ReusableTableProps>) {
           </Table>
         </TableContainer>
 
-        {}
         <TablePagination
           rowsPerPageOptions={[5, 10, 25]}
           component="div"

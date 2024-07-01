@@ -1,4 +1,8 @@
-import MUIDataTable, { MUIDataTableColumnDef, MUIDataTableProps } from "mui-datatables";
+import MUIDataTable, {
+  MUIDataTableColumnDef,
+  MUIDataTableOptions,
+  MUIDataTableProps,
+} from "mui-datatables";
 import React from "react";
 
 type Props = {
@@ -11,19 +15,33 @@ type Props = {
 };
 
 const MUIDatatable = (props: Props) => {
+  const options: MUIDataTableOptions | undefined = {
+    onRowClick: props.onRowClick,
+    filterType: "multiselect",
+    fixedHeader: true,
+    responsive: "standard",
+    selectableRows: "none",
+    textLabels: {
+      body: {
+        noMatch: "لا توجد بيانات",
+      },
+      toolbar: {
+        search: "بحث",
+        downloadCsv: "تحميل CSV",
+        print: "طباعة",
+        viewColumns: "الأعمدة",
+        filterTable: "فلتر",
+      },
+    },
+  };
+
   return (
     <div dir="ltr" className="text-right">
       <MUIDataTable
         title={props.title}
         data={props.data}
         columns={props.columns}
-        options={{
-          onRowClick: props.onRowClick,
-          filterType: "multiselect",
-          fixedHeader: true,
-          responsive: "standard",
-          selectableRows: "none",
-        }}
+        options={options}
       />
     </div>
   );

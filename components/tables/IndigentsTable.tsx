@@ -7,7 +7,7 @@ import { useEffect, useState } from "react";
 import { MUIDataTableColumnDef } from "mui-datatables";
 import MUIDatatable from "./MUIDataTable";
 
-const headCells: MUIDataTableColumnDef[] = [
+const columns: MUIDataTableColumnDef[] = [
   {
     name: "indigent_id",
     label: "كود الحالة",
@@ -118,14 +118,14 @@ export default function IndigentsTable() {
   }, []);
 
   const onRowClick = (row: string[], meta: any) => {
-    router.push(`/indigents/${row[0]}`);
+    router.push(`/indigents/${row[row.length - 1]}`);
   };
 
   return (
     <MUIDatatable
       title={"الحالات"}
       data={indigentList}
-      columns={headCells}
+      columns={columns.toReversed()}
       onRowClick={onRowClick}
     />
   );

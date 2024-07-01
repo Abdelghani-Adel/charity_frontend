@@ -1,28 +1,11 @@
 "use client";
-import { IIndigentRecord } from "@/types/api_responses/GetAllIndigents";
-import Box from "@mui/material/Box";
-import Paper from "@mui/material/Paper";
-import Table from "@mui/material/Table";
-import TableBody from "@mui/material/TableBody";
-import TableCell from "@mui/material/TableCell";
-import TableContainer from "@mui/material/TableContainer";
-import TableHead from "@mui/material/TableHead";
-import TablePagination from "@mui/material/TablePagination";
-import TableRow from "@mui/material/TableRow";
-import TableSortLabel from "@mui/material/TableSortLabel";
-import { visuallyHidden } from "@mui/utils";
-import { HeadCell } from "./types";
-import ReusableTable from "./Table";
-import { useEffect, useState } from "react";
-import IApiRes_GetAllIndigents from "@/types/api_responses/IApiRes_GetAllIndigents";
 import { getAllIndigents } from "@/services/indigentServices";
+import IApiRes_GetAllIndigents from "@/types/api_responses/IApiRes_GetAllIndigents";
 import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
 
-import MUIDataTable, { MUIDataTableColumnDef } from "mui-datatables";
-
-const options = {
-  filterType: "checkbox",
-};
+import { MUIDataTableColumnDef } from "mui-datatables";
+import MUIDatatable from "./MUIDataTable";
 
 const headCells: MUIDataTableColumnDef[] = [
   {
@@ -139,21 +122,11 @@ export default function IndigentsTable() {
   };
 
   return (
-    <div dir="ltr" className="text-right">
-      <MUIDataTable
-        title={"الحالات"}
-        data={indigentList}
-        columns={headCells}
-        options={{
-          filterType: "multiselect",
-          fixedHeader: true,
-          onRowClick: onRowClick,
-          responsive: "standard",
-          selectableRows: "none",
-        }}
-      />
-    </div>
+    <MUIDatatable
+      title={"الحالات"}
+      data={indigentList}
+      columns={headCells}
+      onRowClick={onRowClick}
+    />
   );
-
-  // return <ReusableTable headCells={headCells} rows={indigentList} onRowClick={onRowClick} />;
 }

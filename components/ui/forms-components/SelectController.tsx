@@ -8,7 +8,7 @@ type SelectControllerProps<T extends FieldValues, K extends Path<T>> = {
   name: K;
   control: Control<T>;
   label: string;
-  options: IApiRes_GetListOptions[];
+  options: IApiRes_GetListOptions[] | null;
   rules?: RegisterOptions<T, K>;
   errorMessage?: string;
 } & Omit<SelectProps, "name" | "control" | "defaultValue" | "value" | "error">;
@@ -38,7 +38,7 @@ const SelectController = <T extends FieldValues, K extends Path<T>>({
             value={value}
             {...rest}
           >
-            {options.map((option) => (
+            {options?.map((option) => (
               <MenuItem key={option.value} value={option.value}>
                 {option.label}
               </MenuItem>

@@ -1,3 +1,4 @@
+import InitialSetup from "@/components/MainLayout/InitialSetup";
 import LoadingScreen from "@/components/ui/LoadingScreen/LoadingScreen";
 import ReduxProvider from "@/redux/ReduxProvider";
 import "@/styles/index.css";
@@ -21,6 +22,7 @@ export default function RootLayout(props: Readonly<IProps>) {
     <html lang="ar" className="h-screen overflow-hidden ">
       <body dir="rtl" className="text-right">
         <ReduxProvider>
+          <InitialSetup />
           <LoadingScreen />
           <ToastContainer />
           {children}

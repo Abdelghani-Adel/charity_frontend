@@ -15,7 +15,21 @@ export async function getIndigencyTypesListOptions() {
   return getOptionsList("/api/options-list/indigency-type");
 }
 
-async function getOptionsList(endPoint: string) {
+export async function getGovernoratesListOptions() {
+  return getOptionsList("/api/options-list/governorate");
+}
+
+export async function getCitiesListOptions(governorateId: string) {
+  return getOptionsList(`/api/options-list/city/${governorateId}`);
+}
+
+export async function getDistrictsListOptions(cityId: string) {
+  return getOptionsList(`/api/options-list/district/${cityId}`);
+}
+
+async function getOptionsList(
+  endPoint: string
+): Promise<{ data: IApiRes_GetListOptions[] | null; error: string | null }> {
   let data: IApiRes_GetListOptions[] | null = null;
   let error: string | null = null;
 

@@ -1,43 +1,65 @@
-import cities from "@/public/data/cities.json";
-import destricts from "@/public/data/districts.json";
-import governates from "@/public/data/gov.json";
-import indigencyTypes from "@/public/data/indigencyTypes.json";
+import { useAppDispatch, useAppSelector } from "@/redux/store";
 import { pullDataFromEgyptianID, validateEgyptianNationalID } from "@/utils/egyptianID";
 import { Button } from "@mui/material";
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import SelectController from "../ui/forms-components/SelectController";
 import TextFieldController from "../ui/forms-components/TextFieldController";
+import { ApiReq_InsertIndigent } from "@/types/api_requests/ApiReq_InsertIndigent";
+import { loadingActions } from "@/redux/slices/loadingSlice";
+import { insertNewIndigentService } from "@/services/indigentServices";
+import { toast } from "react-toastify";
 
 const AddIndigentForm = () => {
-  const form = useForm<Partial<IIndigentInfo>>({
+  const dispatch = useAppDispatch();
+  const indigencyTypeOptions = useAppSelector((state) => state.optionsLists.indigencyTypes);
+  const citiesOptions = useAppSelector((state) => state.optionsLists.cities);
+  const districtsOptions = useAppSelector((state) => state.optionsLists.districts);
+  const governatesOptions = useAppSelector((state) => state.optionsLists.governorates);
+
+  const form = useForm<Partial<ApiReq_InsertIndigent>>({
     defaultValues: {
-      governateId: "31",
-      cityId: "01",
+      national_id: "",
+      name: "",
+      phone: "",
+      kids: 1,
+      indigency_type_id: 1,
+      governorate_id: 31,
+      city_id: 215,
+      district_id: 11,
+      address: "",
     },
   });
 
-  const { control, handleSubmit, watch, setValue, formState } = form;
-  const { isValid, errors } = formState;
+  const { control, handleSubmit, watch, formState, reset } = form;
+  const { errors } = formState;
 
   const values = watch();
 
-  useEffect(() => {
-    const { governorate, age } = pullDataFromEgyptianID(values.nid ?? "");
-    setValue("birthGov", governorate);
-    setValue("age", age);
-  }, [values.nid]);
+  const onSubmit = async () => {
+    dispatch(loadingActions.startLoading());
+    try {
+      const { data } = await insertNewIndigentService(values);
+      if (data) {
+        reset();
+        toast.success("تم إضافة الحالة بنجاح!");
+      }
+    } catch (error) {
+      console.error(error);
+    }
+    dispatch(loadingActions.stopLoading());
+  };
 
   return (
     <form
-      onSubmit={handleSubmit(() => {})}
+      onSubmit={handleSubmit(onSubmit)}
       className="relative grid grid-cols-1 gap-x-5 gap-y-3 md:grid-cols-2 xl:grid-cols-3"
     >
       <TextFieldController
-        name="nid"
+        name="national_id"
         control={control}
         label="الرقم القومي"
-        errorMessage={errors.nid?.message}
+        errorMessage={errors.national_id?.message}
         rules={{
           required: { value: true, message: "قم بإدخال الرقم القومي" },
           validate: {
@@ -77,42 +99,48 @@ const AddIndigentForm = () => {
       />
 
       <SelectController
-        name="indigencyTypeId"
+        name="indigency_type_id"
         control={control}
         label="نوع الحالة"
-        errorMessage={errors.indigencyTypeId?.message}
-        options={indigencyTypes}
+        errorMessage={errors.indigency_type_id?.message}
+        options={indigencyTypeOptions}
         rules={{ required: { value: true, message: "قم باختيار نوع الحالة" } }}
       />
 
       <SelectController
-        name="destrictId"
+        name="district_id"
         control={control}
         label="المنطقة / الحيّ"
-        errorMessage={errors.destrictId?.message}
-        options={destricts}
+        errorMessage={errors.district_id?.message}
+        options={districtsOptions}
         rules={{ required: { value: true, message: "قم باختيار المنطقة" } }}
       />
 
-      <SelectController name="cityId" control={control} label="المدينة" options={cities} disabled />
-
       <SelectController
-        name="governateId"
+        name="city_id"
         control={control}
-        label="محافظة الإقامة"
-        options={governates}
+        label="المدينة"
+        options={citiesOptions}
         disabled
       />
 
       <SelectController
+        name="governorate_id"
+        control={control}
+        label="محافظة الإقامة"
+        options={governatesOptions}
+        disabled
+      />
+
+      {/* <SelectController
         name="birthGov"
         control={control}
         label="محافظة الميلاد"
-        options={governates}
+        options={governatesOptions}
         disabled
       />
 
-      <TextFieldController name="age" control={control} label="السن" disabled />
+      <TextFieldController name="age" control={control} label="السن" disabled /> */}
 
       <Button type="submit" variant="contained" color="primary">
         حفظ

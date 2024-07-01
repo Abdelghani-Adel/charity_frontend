@@ -31,7 +31,7 @@ const AddIndigentForm = () => {
     },
   });
 
-  const { control, handleSubmit, watch, formState, reset } = form;
+  const { control, handleSubmit, watch, formState, reset, setError } = form;
   const { errors } = formState;
 
   const values = watch();
@@ -46,6 +46,10 @@ const AddIndigentForm = () => {
       }
     } catch (error) {
       console.error(error);
+      setError("national_id", {
+        type: "manual",
+        message: "رقم قومي مكرر",
+      });
     }
     dispatch(loadingActions.stopLoading());
   };

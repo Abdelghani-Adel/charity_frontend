@@ -16,7 +16,7 @@ const MUIDatatable = (props: Props) => {
       <MUIDataTable
         title={props.title}
         data={props.data}
-        columns={props.columns.toReversed()}
+        columns={props.columns}
         options={{
           onRowClick: props.onRowClick,
           filterType: "multiselect",

@@ -51,7 +51,6 @@ const AddIndigentForm = () => {
       }
     } catch (error) {
       console.error(error);
-      
     }
     dispatch(loadingActions.stopLoading());
   };
@@ -94,6 +93,14 @@ const AddIndigentForm = () => {
         label="رقم التليفون"
         errorMessage={errors.phone?.message}
         rules={{ required: { value: true, message: "قم بإدخال رقم تليفون الحالة" } }}
+      />
+
+      <TextFieldController
+        name="kids"
+        control={control}
+        label="عدد الأطفال"
+        errorMessage={errors.kids?.message}
+        rules={{ required: { value: true, message: "قم بإدخال عدد أطفال الحالة" } }}
       />
 
       <TextFieldController

@@ -1,7 +1,7 @@
 import { TOKEN_NAME } from "@/assets/enums";
 import IApiRes_Global from "@/types/api_responses/IApiRes_Global";
 import IApiRes_UserLogin from "@/types/api_responses/IApiRes_UserLogin";
-import { setCookie } from "@/utils/cookies";
+import { deleteCookie, setCookie } from "@/utils/cookies";
 import { AxiosResponse } from "axios";
 import apiClient from "./clients";
 
@@ -30,3 +30,8 @@ export const signInService = async (username: string, password: string) => {
   console.log("data: " + data);
   return { data, error };
 };
+
+export function signOutService() {
+  deleteCookie(TOKEN_NAME);
+  location.replace("/login");
+}

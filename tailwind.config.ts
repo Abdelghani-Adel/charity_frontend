@@ -14,18 +14,18 @@ const config: Config = {
       },
       colors: {
         primary: {
-          light: "#28209e",
-          DEFAULT: "#211C6A",
-          dark: "#16124d",
+          light: "#269e89",
+          DEFAULT: "#235591",
+          dark: "#11453c",
         },
         secondary: {
-          light: "#FDFFA9",
-          DEFAULT: "#74E291",
-          dark: "#429e5b",
+          light: "#235591",
+          DEFAULT: "#1F4068",
+          dark: "#122c4a",
         },
         hover: {
-          primary: "#16124d",
-          secondary: "#429e5b",
+          primary: "#11453c",
+          secondary: "#122c4a",
         },
         warning: {
           DEFAULT: "#F59E0B",

@@ -3,11 +3,13 @@ import { useDispatch, useSelector } from "react-redux";
 import type { TypedUseSelectorHook } from "react-redux";
 import loadingReducer from "./slices/loadingSlice";
 import optionsSlice from "./slices/optionsSlice";
+import UserSlice from "./slices/UserSlice";
 
 const store = configureStore({
   reducer: {
     loading: loadingReducer,
     optionsLists: optionsSlice,
+    user: UserSlice,
   },
 });
 

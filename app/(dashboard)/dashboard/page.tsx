@@ -2,17 +2,27 @@
 import Button from "@/components/ui/Button";
 import ButtonLink from "@/components/ui/ButtonLink";
 import PageTitle from "@/components/ui/PageTitle";
+import { useAppSelector } from "@/redux/store";
 import { FaRegEdit } from "react-icons/fa";
+import { HiUserGroup } from "react-icons/hi";
 import { IoMdAddCircleOutline } from "react-icons/io";
 import { IoPersonAddOutline } from "react-icons/io5";
 import { RiAlarmWarningLine } from "react-icons/ri";
 import { TbReportSearch } from "react-icons/tb";
 
 export default async function Home() {
-  // await new Promise((resolve) => setTimeout(resolve, 50000));
+  const user = useAppSelector((state) => state.user);
 
   return (
     <div className="flex flex-col gap-8">
+      {/* <div>
+        {user.name && (
+          <h1 className="font-bold text-2xl">
+            مرحباََ, <span>{user.name}</span>
+          </h1>
+        )}
+      </div> */}
+
       <div>
         <PageTitle title="الحالات" />
         <div className="flex flex-col lg:flex-row gap-3">
@@ -23,13 +33,13 @@ export default async function Home() {
           <ButtonLink href="/indigents/inquery">
             <TbReportSearch /> إستعلام عن حالة
           </ButtonLink>
-          <Button>
+          {/* <Button>
             <RiAlarmWarningLine />
             الإبلاغ عن حالة
           </Button>
           <Button>
             <FaRegEdit /> طلب تعديل بيانات حالة
-          </Button>
+          </Button> */}
         </div>
       </div>
 

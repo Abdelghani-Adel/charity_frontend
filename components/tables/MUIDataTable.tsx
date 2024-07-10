@@ -1,3 +1,5 @@
+"use client";
+
 import MUIDataTable, {
   MUIDataTableColumnDef,
   MUIDataTableOptions,
@@ -9,14 +11,14 @@ type Props = {
   title: string | React.ReactNode;
   columns: MUIDataTableColumnDef[];
   data: Array<object | number[] | string[]>;
-  onRowClick?:
+  rowClick?:
     | ((rowData: string[], rowMeta: { dataIndex: number; rowIndex: number }) => void)
     | undefined;
 };
 
 const MUIDatatable = (props: Props) => {
   const options: MUIDataTableOptions | undefined = {
-    onRowClick: props.onRowClick,
+    onRowClick: props.rowClick,
     filterType: "multiselect",
     fixedHeader: true,
     responsive: "standard",

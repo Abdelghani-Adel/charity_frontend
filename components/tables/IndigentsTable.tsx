@@ -1,8 +1,6 @@
 "use client";
-import { getAllIndigents } from "@/services/indigentServices";
+
 import IApiRes_GetAllIndigents from "@/types/api_responses/IApiRes_GetAllIndigents";
-import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
 
 import { MUIDataTableColumnDef } from "mui-datatables";
 import MUIDatatable from "./MUIDataTable";
@@ -105,28 +103,19 @@ const columns: MUIDataTableColumnDef[] = [
   },
 ];
 
-export default function IndigentsTable() {
-  const router = useRouter();
-  const [indigentList, setIndigentList] = useState<IApiRes_GetAllIndigents[]>([]);
-
-  useEffect(() => {
-    async function fetchIndigents() {
-      const { data } = await getAllIndigents();
-      if (data) setIndigentList(data);
-    }
-    fetchIndigents();
-  }, []);
-
-  const onRowClick = (row: string[], meta: any) => {
-    router.push(`/indigents/${row[row.length - 1]}`);
+export default async function IndigentsTable({
+  data,
+}: Readonly<{ data: IApiRes_GetAllIndigents[] | null }>) {
+  const rowClick = (row: string[], meta: any) => {
+    window.location.href = `/indigents/${row[0]}`;
   };
 
   return (
     <MUIDatatable
       title={"الحالات"}
-      data={indigentList}
+      data={data ?? []}
       columns={columns.toReversed()}
-      onRowClick={onRowClick}
+      rowClick={rowClick}
     />
   );
 }

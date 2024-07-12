@@ -4,6 +4,7 @@ import IApiRes_GetAllIndigents from "@/types/api_responses/IApiRes_GetAllIndigen
 
 import { MUIDataTableColumnDef } from "mui-datatables";
 import MUIDatatable from "./MUIDataTable";
+import { useRouter } from "next/navigation";
 
 const columns: MUIDataTableColumnDef[] = [
   {
@@ -106,9 +107,17 @@ const columns: MUIDataTableColumnDef[] = [
 export default async function IndigentsTable({
   data,
 }: Readonly<{ data: IApiRes_GetAllIndigents[] | null }>) {
+  const router = useRouter();
   const rowClick = (row: string[], meta: any) => {
-    window.location.href = `/indigents/${row[0]}`;
+    router.push(`/indigents/${row[row.length - 1]}`);
   };
 
-  return <MUIDatatable title={"الحالات"} data={data ?? []} columns={columns} rowClick={rowClick} />;
+  return (
+    <MUIDatatable
+      title={"الحالات"}
+      data={data ?? []}
+      columns={columns}
+      rowClick={rowClick}
+    />
+  );
 }

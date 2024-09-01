@@ -29,15 +29,32 @@ const navLinks: INavLink[] = [
     icon: LiaIdCard,
     roles: [root, admin, charityAdmin, charityUser],
     children: [
-      { href: "/indigents/add", label: "إضافة", roles: [root, admin, charityAdmin, charityUser] },
+      {
+        href: "/indigents/add",
+        label: "إضافة حالة",
+        roles: [root, admin, charityAdmin, charityUser],
+      },
       {
         href: "/indigents/inquery",
-        label: "إستعلام",
+        label: "إستعلام عن حالة",
         roles: [root, admin, charityAdmin, charityUser],
       },
       {
         href: "/indigents/edit",
-        label: "طلب تعديل",
+        label: "طلب تعديل حالة",
+        roles: [root, admin, charityAdmin, charityUser],
+      },
+    ],
+  },
+  {
+    href: "/groups",
+    label: "المجموعات",
+    icon: FaUsersLine,
+    roles: [root, admin, charityAdmin, charityUser],
+    children: [
+      {
+        href: "/groups/add",
+        label: "إضافة مجموعة",
         roles: [root, admin, charityAdmin, charityUser],
       },
     ],
@@ -50,7 +67,7 @@ const navLinks: INavLink[] = [
     children: [
       {
         href: "/aids/add",
-        label: "إضافة",
+        label: "إضافة مساعدة",
         roles: [root, admin, charityAdmin, charityUser],
       },
     ],

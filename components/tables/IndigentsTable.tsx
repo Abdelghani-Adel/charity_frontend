@@ -2,11 +2,11 @@
 
 import IApiRes_GetAllIndigents from "@/types/api_responses/IApiRes_GetAllIndigents";
 
-import { MUIDataTableColumnDef } from "mui-datatables";
+import { MUIDataTableColumn, MUIDataTableColumnDef } from "mui-datatables";
 import MUIDatatable from "./MUIDataTable";
 import { useRouter } from "next/navigation";
 
-const columns: MUIDataTableColumnDef[] = [
+const columns: MUIDataTableColumn[] = [
   {
     name: "address",
     label: "العنوان",
@@ -112,12 +112,5 @@ export default async function IndigentsTable({
     router.push(`/indigents/${row[row.length - 1]}`);
   };
 
-  return (
-    <MUIDatatable
-      title={"الحالات"}
-      data={data ?? []}
-      columns={columns}
-      rowClick={rowClick}
-    />
-  );
+  return <MUIDatatable title={"الحالات"} data={data ?? []} columns={columns} rowClick={rowClick} />;
 }

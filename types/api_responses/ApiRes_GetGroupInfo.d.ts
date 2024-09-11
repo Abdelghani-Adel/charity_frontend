@@ -10,6 +10,6 @@ interface IQR_GetGroupInfo {
   indigents: IQR_Indigent[];
 }
 
-type IApiRes_GetGroupInfo = IQR_GetGroupInfo | [];
+type IApiRes_GetGroupInfo = IQR_GetGroupInfo;
 
 export default IApiRes_GetGroupInfo;

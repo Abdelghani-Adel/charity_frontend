@@ -88,11 +88,11 @@ export async function removeFromGroup(newGroup: ApiReq_RemoveFromGroup, token?: 
 }
 
 export async function getGroupInfo(groupId: string, token?: string) {
-  let data: IApiRes_GetGroupInfo[] | null = null;
+  let data: IApiRes_GetGroupInfo | null = null;
   let error: string | null = null;
 
   try {
-    const response: AxiosResponse<IApiRes_Global<IApiRes_GetGroupInfo[]>> = await apiClient.post(
+    const response: AxiosResponse<IApiRes_Global<IApiRes_GetGroupInfo>> = await apiClient.post(
       "/api/indigentGroups/getGroupInfo",
       { groupId: groupId }
     );

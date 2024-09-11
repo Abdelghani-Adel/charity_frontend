@@ -1,11 +1,6 @@
 "use client";
 
-import MUIDataTable, {
-  MUIDataTableColumn,
-  MUIDataTableColumnDef,
-  MUIDataTableOptions,
-  MUIDataTableProps,
-} from "mui-datatables";
+import MUIDataTable, { MUIDataTableColumn, MUIDataTableOptions } from "mui-datatables";
 import React, { useEffect, useState } from "react";
 
 type Props = {
@@ -41,6 +36,8 @@ const MUIDatatable = (props: Props) => {
     fixedHeader: true,
     responsive: "standard",
     selectableRows: "none",
+    // selectableRowsHeader: false,
+    // selectToolbarPlacement: "none",
     textLabels: {
       body: {
         noMatch: "لا توجد بيانات",

@@ -10,7 +10,7 @@ import apiClient from "./clients";
 
 const baseURL = process.env.NEXT_PUBLIC_API_URL;
 
-export async function insertGroup(newGroup: IInsertGroupRequest, token?: string) {
+export async function insertGroup(newGroup: IInsertGroupRequest) {
   let data = null;
   let error: string | null = null;
 

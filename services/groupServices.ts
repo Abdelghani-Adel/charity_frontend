@@ -1,22 +1,21 @@
-import { ApiReq_InsertGroup } from "@/types/api_requests/ApiReq_InsertGroup";
-import IApiRes_Global from "@/types/api_responses/IApiRes_Global";
+import { IAddToGroupRequest } from "@/interfaces/requests/IAddToGroupRequest";
+import { IEditGroupRequest } from "@/interfaces/requests/IEditGroupRequest";
+import { IInsertGroupRequest } from "@/interfaces/requests/IInsertGroupRequest";
+import { IRemoveFromGroupRequest } from "@/interfaces/requests/IRemoveFromGroupRequest";
+import IGlobalResponse from "@/interfaces/responses/IGlobalResponse";
+import { IGroupDetailsRecord } from "@/interfaces/responses/IGroupDetailsRecord";
+import { IGroupListRecord } from "@/interfaces/responses/IGroupListRecord";
 import axios, { AxiosResponse } from "axios";
 import apiClient from "./clients";
-import { ApiReq_EditGroup } from "@/types/api_requests/ApiReq_EditGroup";
-import { ApiReq_AddToGroup } from "@/types/api_requests/ApiReq_AddToGroup";
-import { ApiReq_RemoveFromGroup } from "@/types/api_requests/ApiReq_RemoveFromGroup";
-import IApiRes_GetGroupInfo from "@/types/api_responses/ApiRes_GetGroupInfo";
-import IApiRes_GetOrgGroups from "@/types/api_responses/IApiRes_GetOrgGroups";
-import { headers } from "next/headers";
 
 const baseURL = process.env.NEXT_PUBLIC_API_URL;
 
-export async function insertGroup(newGroup: ApiReq_InsertGroup, token?: string) {
+export async function insertGroup(newGroup: IInsertGroupRequest, token?: string) {
   let data = null;
   let error: string | null = null;
 
   try {
-    const response: AxiosResponse<IApiRes_Global<"">> = await apiClient.post(
+    const response: AxiosResponse<IGlobalResponse<"">> = await apiClient.post(
       "/api/indigentGroups/insertGroup",
       newGroup
     );
@@ -30,12 +29,12 @@ export async function insertGroup(newGroup: ApiReq_InsertGroup, token?: string) 
   return { data, error };
 }
 
-export async function editGroup(newGroup: ApiReq_EditGroup, token?: string) {
+export async function editGroup(newGroup: IEditGroupRequest, token?: string) {
   let data = null;
   let error: string | null = null;
 
   try {
-    const response: AxiosResponse<IApiRes_Global<"">> = await apiClient.post(
+    const response: AxiosResponse<IGlobalResponse<"">> = await apiClient.post(
       "/api/indigentGroups/editGroup",
       newGroup
     );
@@ -49,12 +48,12 @@ export async function editGroup(newGroup: ApiReq_EditGroup, token?: string) {
   return { data, error };
 }
 
-export async function addToGroup(newGroup: ApiReq_AddToGroup, token?: string) {
+export async function addToGroup(newGroup: IAddToGroupRequest, token?: string) {
   let data = null;
   let error: string | null = null;
 
   try {
-    const response: AxiosResponse<IApiRes_Global<"">> = await apiClient.post(
+    const response: AxiosResponse<IGlobalResponse<"">> = await apiClient.post(
       "/api/indigentGroups/addToGroup",
       newGroup
     );
@@ -68,12 +67,12 @@ export async function addToGroup(newGroup: ApiReq_AddToGroup, token?: string) {
   return { data, error };
 }
 
-export async function removeFromGroup(newGroup: ApiReq_RemoveFromGroup, token?: string) {
+export async function removeFromGroup(newGroup: IRemoveFromGroupRequest, token?: string) {
   let data = null;
   let error: string | null = null;
 
   try {
-    const response: AxiosResponse<IApiRes_Global<"">> = await apiClient.post(
+    const response: AxiosResponse<IGlobalResponse<"">> = await apiClient.post(
       "/api/indigentGroups/removeFromGroup",
       newGroup
     );
@@ -88,11 +87,11 @@ export async function removeFromGroup(newGroup: ApiReq_RemoveFromGroup, token?: 
 }
 
 export async function getGroupInfo(groupId: string, token?: string) {
-  let data: IApiRes_GetGroupInfo | null = null;
+  let data: IGroupDetailsRecord | null = null;
   let error: string | null = null;
 
   try {
-    const response: AxiosResponse<IApiRes_Global<IApiRes_GetGroupInfo>> = await apiClient.post(
+    const response: AxiosResponse<IGlobalResponse<IGroupDetailsRecord>> = await apiClient.post(
       "/api/indigentGroups/getGroupInfo",
       { groupId: groupId }
     );
@@ -107,11 +106,11 @@ export async function getGroupInfo(groupId: string, token?: string) {
 }
 
 export async function getOrgGroups(token?: string | undefined | null) {
-  let data: IApiRes_GetOrgGroups | null = null;
+  let data: IGroupListRecord[] | null = null;
   let error: string | null = null;
 
   try {
-    const response: AxiosResponse<IApiRes_Global<IApiRes_GetOrgGroups>> = await axios.post(
+    const response: AxiosResponse<IGlobalResponse<IGroupListRecord[]>> = await axios.post(
       `${baseURL}/api/indigentGroups/getOrgGroups`,
       {},
       {

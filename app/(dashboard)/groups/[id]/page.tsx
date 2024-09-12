@@ -1,37 +1,13 @@
 "use client";
-import MUIDatatable from "@/components/tables/MUIDataTable";
-import ReusableTable from "@/components/tables/Table";
-import { HeadCell } from "@/components/tables/types";
+import IndigentsTable from "@/components/tables/IndigentsTable";
 import PageTitle from "@/components/ui/PageTitle";
+import { IGroupDetailsRecord } from "@/interfaces/responses/IGroupDetailsRecord";
 import { getGroupInfo } from "@/services/groupServices";
-import IApiRes_GetGroupInfo from "@/types/api_responses/ApiRes_GetGroupInfo";
-import { MUIDataTableColumn } from "mui-datatables";
 import { useParams } from "next/navigation";
-import React, { useEffect, useState } from "react";
-
-const headCells: MUIDataTableColumn[] = [
-  {
-    name: "id",
-    label: "كود الحالة",
-    options: {
-      print: true,
-      filter: false,
-      sort: false,
-    },
-  },
-  {
-    name: "name",
-    label: "إسم الحالة",
-    options: {
-      print: true,
-      filter: false,
-      sort: false,
-    },
-  },
-];
+import { useEffect, useState } from "react";
 
 const Page = () => {
-  const [details, setDetails] = useState<IApiRes_GetGroupInfo>();
+  const [details, setDetails] = useState<IGroupDetailsRecord>();
   const params = useParams();
 
   useEffect(() => {
@@ -47,9 +23,9 @@ const Page = () => {
 
   return (
     <div>
-      <PageTitle title={details.group_name} />
+      <PageTitle title={details.group_details.group_name} />
 
-      <MUIDatatable title="الحالات" columns={headCells} data={details.indigents ?? []} />
+      <IndigentsTable data={details.group_details.indigents ?? []} />
     </div>
   );
 };

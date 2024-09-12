@@ -1,11 +1,9 @@
 "use client";
 
-import { MUIDataTableColumn, MUIDataTableColumnDef } from "mui-datatables";
-import MUIDatatable from "./MUIDataTable";
+import { MUIDataTableColumn } from "mui-datatables";
 import { useRouter } from "next/navigation";
-import IApiRes_GetOrgGroups from "@/types/api_responses/IApiRes_GetOrgGroups";
-import { useEffect, useState } from "react";
-import { getOrgGroups } from "@/services/groupServices";
+import MUIDatatable from "./MUIDataTable";
+import { IGroupListRecord } from "@/interfaces/responses/IGroupListRecord";
 
 const columns: MUIDataTableColumn[] = [
   {
@@ -40,9 +38,7 @@ const columns: MUIDataTableColumn[] = [
   },
 ];
 
-export default async function GroupsTable({
-  data,
-}: Readonly<{ data: IApiRes_GetOrgGroups | null }>) {
+export default async function GroupsTable({ data }: Readonly<{ data: IGroupListRecord[] | null }>) {
   const router = useRouter();
   const rowClick = (row: string[], meta: any) => {
     router.push(`/groups/${row[row.length - 1]}`);

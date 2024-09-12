@@ -5,6 +5,7 @@ import IApiRes_GetAllIndigents from "@/types/api_responses/IApiRes_GetAllIndigen
 import { MUIDataTableColumn, MUIDataTableColumnDef } from "mui-datatables";
 import MUIDatatable from "./MUIDataTable";
 import { useRouter } from "next/navigation";
+import IIndigentRecord from "@/interfaces/responses/IIndigentRecord";
 
 const columns: MUIDataTableColumn[] = [
   {
@@ -106,7 +107,7 @@ const columns: MUIDataTableColumn[] = [
 
 export default async function IndigentsTable({
   data,
-}: Readonly<{ data: IApiRes_GetAllIndigents[] | null }>) {
+}: Readonly<{ data: IApiRes_GetAllIndigents[] | IIndigentRecord[] | null }>) {
   const router = useRouter();
   const rowClick = (row: string[], meta: any) => {
     router.push(`/indigents/${row[row.length - 1]}`);

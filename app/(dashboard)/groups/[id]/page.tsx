@@ -16,6 +16,7 @@ import Select, { SelectChangeEvent } from "@mui/material/Select";
 import Checkbox from "@mui/material/Checkbox";
 import { IApiRes_GetListOptions } from "@/types/api_responses/IApiRes_GetListOptions";
 import { getIndigentListOptions } from "@/services/ListServices";
+import SearchComponent from "@/components/forms/SearchComponent";
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
@@ -43,28 +44,8 @@ const names = [
 
 const Page = () => {
   const [details, setDetails] = useState<IGroupDetailsRecord>();
-  const [indigentList, setIndigentList] = useState<IApiRes_GetListOptions[] | undefined>();
   const params = useParams();
-  const [personName, setPersonName] = useState<string[]>([]);
-
-  const handleChange = (event: SelectChangeEvent<typeof personName>) => {
-    const {
-      target: { value },
-    } = event;
-    setPersonName(
-      // On autofill we get a stringified value.
-      typeof value === "string" ? value.split(",") : value
-    );
-  };
-
-  useEffect(() => {
-    const fetchIndigentList = async () => {
-      const { data } = await getIndigentListOptions();
-      if (data) setIndigentList(data);
-    };
-
-    fetchIndigentList();
-  }, []);
+  const [reload, setReload] = useState(false);
 
   useEffect(() => {
     async function fetchDetails() {
@@ -73,38 +54,17 @@ const Page = () => {
       console.log(data);
     }
     fetchDetails();
-  }, []);
+  }, [reload]);
 
   if (!details) return null;
 
   return (
     <div className="space-y-4">
       <PageTitle title={details.group_details.group_name} />
-      <Button>
-        <IoMdAddCircleOutline />
-        إضافة حالات للمجموعة
-      </Button>
-
-      <FormControl sx={{ m: 1, width: 300 }}>
-        <InputLabel id="demo-multiple-checkbox-label">Tag</InputLabel>
-        <Select
-          labelId="demo-multiple-checkbox-label"
-          id="demo-multiple-checkbox"
-          multiple
-          value={personName}
-          onChange={handleChange}
-          input={<OutlinedInput label="Tag" />}
-          renderValue={(selected) => selected.join(", ")}
-          MenuProps={MenuProps}
-        >
-          {indigentList?.map((indigent) => (
-            <MenuItem key={indigent.value} value={indigent.value}>
-              <Checkbox checked={personName.indexOf(indigent.value) > -1} />
-              <ListItemText primary={indigent.label} />
-            </MenuItem>
-          ))}
-        </Select>
-      </FormControl>
+      <SearchComponent
+        grp_id={params.id.toLocaleString()}
+        reload={() => setReload((prev) => !prev)}
+      />
 
       <IndigentsTable data={details.group_details.indigents ?? []} />
     </div>

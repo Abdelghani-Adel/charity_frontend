@@ -68,3 +68,23 @@ export const getIndigentDetails = async (id: string) => {
 
   return { data, error };
 };
+
+export const searchIndigent = async (name: string) => {
+  let data = null;
+  let error = null;
+
+  try {
+    const response: AxiosResponse<IApiRes_Global<any>> = await apiClient.post(
+      "/api/indigent/search",
+      { name }
+    );
+
+    if (response.data.success && response.data.data) {
+      data = response.data.data;
+    }
+  } catch (err) {
+    error = "Error: Couldn't get the data";
+  }
+
+  return { data, error };
+};

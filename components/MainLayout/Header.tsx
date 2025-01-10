@@ -17,7 +17,7 @@ const Header = () => {
       <MobileSidebarToggler onToggle={toggleSidebar} />
 
       <Link href="/" className="relative w-[130px] h-[40px] mr-auto">
-        <Image src="/images/logo.png" fill alt="logo" />
+        <Image src="/images/new-logo.png" fill alt="logo" />
       </Link>
 
       <MobileSidebar isCollapsed={isCollapsed} />

@@ -9,6 +9,27 @@ import IIndigentRecord from "@/interfaces/responses/IIndigentRecord";
 
 const columns: MUIDataTableColumn[] = [
   {
+    name: "signature",
+    label: "التوقيع",
+    options: {
+      print: true,
+      filter: false,
+      sort: false,
+      searchable: false,
+    },
+  },
+  {
+    name: "amount",
+    label: "المبلغ",
+    options: {
+      print: true,
+      filter: false,
+      sort: false,
+      searchable: false,
+    },
+  },
+
+  {
     name: "address",
     label: "العنوان",
     options: {
@@ -113,5 +134,12 @@ export default async function IndigentsTable({
     router.push(`/indigents/${row[row.length - 1]}`);
   };
 
-  return <MUIDatatable title={"الحالات"} data={data ?? []} columns={columns} rowClick={rowClick} />;
+  return (
+    <MUIDatatable
+      title={"الحالات"}
+      data={data ?? []}
+      columns={columns}
+      rowClick={rowClick}
+    />
+  );
 }

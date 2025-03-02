@@ -15,6 +15,7 @@ type SelectControllerProps<T extends FieldValues, K extends Path<T>> = {
   options: IApiRes_GetListOptions[] | null;
   rules?: RegisterOptions<T, K>;
   errorMessage?: string;
+  disabled?: boolean;
 };
 
 const SelectController = <T extends FieldValues, K extends Path<T>>({

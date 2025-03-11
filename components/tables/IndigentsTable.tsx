@@ -91,7 +91,7 @@ const columns: MUIDataTableColumn[] = [
     name: "phone",
     label: "الهاتف",
     options: {
-      print: false,
+      print: true,
       filter: false,
       sort: false,
       searchable: false,
